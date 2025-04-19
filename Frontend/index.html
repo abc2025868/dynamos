@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AgriAssist - Smart agriculture tools and resources for Tamil Nadu farmers">
-    <title>AgriAssist - Empowering Tamil Nadu Farmers</title>
+    <meta name="description" content="Uzhavar Oli - Smart agriculture tools and resources for Tamil Nadu farmers">
+    <title>Uzhavar Oli - Empowering Tamil Nadu Farmers</title>
     
     <!-- PWA Support -->
     <meta name="theme-color" content="#2E7D32">
@@ -33,7 +33,7 @@
         <div class="navbar-container">
             <div class="logo">
                 <a href="#">
-                    <img src="assets/logo.png" alt="AgriAssist Logo" width="180">
+                    <img src="assets/logo.png" alt="Uzhavar Oli Logo" width="180">
                 </a>
             </div>
             <div class="navbar-menu">
@@ -60,7 +60,7 @@
     <!-- Cultural Icon -->
     <div class="cultural-icon">
         <div class="icon-container">
-            <img src="assets/cultural-icon.png" alt="Tamil Nadu Cultural Symbol">
+            <img src="assets/agri-icon.png" alt="Tamil Nadu Cultural Symbol">
             <span class="icon-text">TN</span>
         </div>
     </div>
@@ -91,44 +91,42 @@
     <section class="features-section" id="features">
         <h2 class="section-title">Our Features</h2>
         <div class="features-container">
-            <div class="feature-card">
+            <div class="feature-card" data-feature="weatherDetails">
                 <div class="feature-icon">
                     <i class="fas fa-cloud-sun"></i>
                 </div>
                 <h3 class="feature-title">Weather Details</h3>
                 <p>Get accurate weather forecasts specific to your location and plan your farming activities accordingly.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card" data-feature="cropDisease">
                 <div class="feature-icon">
                     <i class="fas fa-seedling"></i>
                 </div>
                 <h3 class="feature-title">Detect Crop Disease</h3>
                 <p>Use your smartphone to scan plants and identify diseases with our AI-powered detection system.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card" data-feature="marketPrices">
                 <div class="feature-icon">
-                    <a href="market-prices.html">
-                        <i class="fas fa-chart-line"></i>
-                    </a>
+                    <i class="fas fa-chart-line"></i>
                 </div>
-                <h3 class="feature-title"><a href="market-prices.html">Latest Market Prices</a></h3>
+                <h3 class="feature-title">Latest Market Prices</h3>
                 <p>Stay informed about current market prices for your crops and find the best places to sell.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card" data-feature="govtSchemes">
                 <div class="feature-icon">
                     <i class="fas fa-landmark"></i>
                 </div>
                 <h3 class="feature-title">Government Schemes</h3>
                 <p>Learn about all available government schemes and subsidies that can help your farming business.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card" data-feature="youtubeRefs">
                 <div class="feature-icon">
                     <i class="fab fa-youtube"></i>
                 </div>
                 <h3 class="feature-title">YouTube References</h3>
                 <p>Watch educational videos about modern farming techniques and best practices in agriculture.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card" data-feature="expertSuggestions">
                 <div class="feature-icon">
                     <i class="fas fa-hands-helping"></i>
                 </div>
@@ -155,6 +153,23 @@
         <div class="footer-quote">
             <p>Ready to <span class="highlight">elevate</span> your farming? Join our <span class="highlight">community</span> of Tamil Nadu farmers using <span class="highlight">technology</span> to boost yields and income.</p>
         </div>
+        <div class="social-icons">
+            <a href="#" class="social-icon" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
         <div class="footer-links">
             <a href="login.html">Login</a>
             <span class="divider">|</span>
@@ -165,7 +180,7 @@
             <a href="contact.html">Contact Us</a>
         </div>
         <div class="copyright">
-            &copy; <span id="current-year">2023</span> AgriAssist. All rights reserved.
+            &copy; <span id="current-year">2023</span> Uzhavar Oli. All rights reserved.
         </div>
     </footer>
 
@@ -188,6 +203,43 @@
         
         // Update copyright year
         document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Handle navigation from other pages
+        window.addEventListener('load', function() {
+            // Check if we have a section to scroll to from localStorage
+            const scrollToSection = localStorage.getItem('scrollToSection');
+            if (scrollToSection) {
+                // Clear the storage item
+                localStorage.removeItem('scrollToSection');
+                
+                // Find the target section
+                const targetSection = document.getElementById(scrollToSection);
+                if (targetSection) {
+                    // Wait a bit for page to be fully loaded
+                    setTimeout(() => {
+                        const headerOffset = document.querySelector('.navbar').offsetHeight;
+                        const elementPosition = targetSection.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.scrollY - headerOffset - 20;
+                        
+                        // Scroll to the section
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update active menu item
+                        const menuItems = document.querySelectorAll('.navbar-menu .menu-item');
+                        menuItems.forEach(item => {
+                            item.classList.remove('active');
+                            const href = item.getAttribute('href');
+                            if (href && href === `#${scrollToSection}`) {
+                                item.classList.add('active');
+                            }
+                        });
+                    }, 300);
+                }
+            }
+        });
     </script>
 </body>
 </html>

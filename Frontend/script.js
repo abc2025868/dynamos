@@ -12,18 +12,33 @@ const translations = {
         logout: "Logout",
         featuresTitle: "Our Features",
         weatherDetails: "Weather Details",
+        weatherDetailsDesc: "Get accurate weather forecasts specific to your location and plan your farming activities accordingly.",
         cropDisease: "Detect Crop Disease",
+        cropDiseaseDesc: "Use your smartphone to scan plants and identify diseases with our AI-powered detection system.",
         marketPrices: "Latest Market Prices",
+        marketPricesDesc: "Stay informed about current market prices for your crops and find the best places to sell.",
         govtSchemes: "Government Schemes",
+        govtSchemesDesc: "Learn about all available government schemes and subsidies that can help your farming business.",
         youtubeRefs: "YouTube References",
+        youtubeRefsDesc: "Watch educational videos about modern farming techniques and best practices in agriculture.",
         expertSuggestions: "Expert Suggestions",
+        expertSuggestionsDesc: "Connect with agricultural experts who can provide personalized advice for your specific needs.",
         aboutText: "This web app empowers Tamil Nadu farmers by providing agriculture insights, weather forecasts, government schemes, and expert help in their own language. Built with care, it brings tradition and technology together for a better future.",
         footerQuote: "Ready to <span class='highlight'>elevate</span> your farming? Join our <span class='highlight'>community</span> of Tamil Nadu farmers using <span class='highlight'>technology</span> to boost yields and income.",
         weatherAlert: "Weather Alert: Moderate rainfall expected in delta regions",
         newSubsidies: "Tamil Nadu announces new subsidies for organic farming",
         pestResistant: "New pest-resistant rice variety developed at TNAU",
         mspIncrease: "Government increases minimum support price for paddy by 5%",
-        solarIrrigation: "Solar-powered irrigation systems now available with 50% subsidy"
+        solarIrrigation: "Solar-powered irrigation systems now available with 50% subsidy",
+        pageTitle: "Uzhavar Oli - Empowering Tamil Nadu Farmers",
+        pageDescription: "Uzhavar Oli - Smart agriculture tools and resources for Tamil Nadu farmers",
+        culturalIconText: "TN",
+        culturalIconAlt: "Tamil Nadu Cultural Symbol",
+        privacyPolicy: "Privacy Policy",
+        termsOfService: "Terms of Service",
+        contactUs: "Contact Us",
+        goToDashboard: "Go to Dashboard",
+        welcomeMessage: "Welcome to Uzhavar Oli! 🌱 We're here to help you on your farming journey."
     },
     ta: {
         home: "முகப்பு",
@@ -37,18 +52,33 @@ const translations = {
         logout: "வெளியேறு",
         featuresTitle: "எங்கள் அம்சங்கள்",
         weatherDetails: "வானிலை விவரங்கள்",
+        weatherDetailsDesc: "உங்கள் இடத்திற்கான துல்லியமான வானிலை முன்னறிவிப்புகளை பெறுங்கள் மற்றும் உங்கள் விவசாய செயல்பாடுகளை திட்டமிடுங்கள்.",
         cropDisease: "பயிர் நோய் கண்டறிதல்",
+        cropDiseaseDesc: "உங்கள் ஸ்மார்ட்போனைப் பயன்படுத்தி செடிகளை ஸ்கேன் செய்து, எங்கள் AI அமைப்பின் மூலம் நோய்களை கண்டறியவும்.",
         marketPrices: "சந்தை விலைகள்",
+        marketPricesDesc: "உங்கள் பயிர்களின் தற்போதைய சந்தை விலைகளைப் பற்றி தெரிந்து கொள்ளுங்கள் மற்றும் சிறந்த விற்பனை இடங்களை கண்டறியவும்.",
         govtSchemes: "அரசு திட்டங்கள்",
+        govtSchemesDesc: "உங்கள் விவசாய வணிகத்திற்கு உதவக்கூடிய அனைத்து கிடைக்கக்கூடிய அரசு திட்டங்கள் மற்றும் மானியங்களைப் பற்றி அறியவும்.",
         youtubeRefs: "யூடியூப் குறிப்புகள்",
+        youtubeRefsDesc: "நவீன விவசாய நுட்பங்கள் மற்றும் சிறந்த நடைமுறைகள் பற்றி கல்வி வீடியோக்களைப் பாருங்கள்.",
         expertSuggestions: "நிபுணர் ஆலோசனைகள்",
+        expertSuggestionsDesc: "உங்கள் குறிப்பிட்ட தேவைகளுக்கு தனிப்பயனாக்கப்பட்ட ஆலோசனையை வழங்கக்கூடிய விவசாய நிபுணர்களுடன் இணைக்கவும்.",
         aboutText: "இந்த வலைத்தளம் தமிழக விவசாயிகளுக்கு விவசாய தகவல்கள், வானிலை முன்னறிவிப்புகள், அரசு திட்டங்கள், மற்றும் நிபுணர் உதவிகளை அவர்களின் சொந்த மொழியில் வழங்குகிறது. கவனத்துடன் உருவாக்கப்பட்ட இது, பாரம்பரியத்தையும் தொழில்நுட்பத்தையும் இணைத்து சிறந்த எதிர்காலத்தை உருவாக்குகிறது.",
         footerQuote: "உங்கள் விவசாயத்தை <span class='highlight'>உயர்த்த</span> தயாரா? <span class='highlight'>தொழில்நுட்பத்தைப்</span> பயன்படுத்தி மகசூலையும் வருமானத்தையும் அதிகரிக்கும் தமிழக விவசாயிகளின் <span class='highlight'>சமூகத்தில்</span> இணையுங்கள்.",
         weatherAlert: "வானிலை எச்சரிக்கை: டெல்டா பகுதிகளில் மிதமான மழைக்கு வாய்ப்பு",
         newSubsidies: "தமிழக அரசு இயற்கை விவசாயத்திற்கு புதிய மானியங்களை அறிவித்துள்ளது",
         pestResistant: "தமிழ்நாடு வேளாண் பல்கலைக்கழகத்தில் புதிய பூச்சி எதிர்ப்பு நெல் ரகம் உருவாக்கப்பட்டுள்ளது",
         mspIncrease: "நெல்லுக்கான குறைந்தபட்ச ஆதார விலையை 5% அரசு உயர்த்தியுள்ளது",
-        solarIrrigation: "சூரிய சக்தி பாசன அமைப்புகள் இப்போது 50% மானியத்துடன் கிடைக்கின்றன"
+        solarIrrigation: "சூரிய சக்தி பாசன அமைப்புகள் இப்போது 50% மானியத்துடன் கிடைக்கின்றன",
+        privacyPolicy: "தனியுரிமைக் கொள்கை",
+        termsOfService: "சேவை விதிமுறைகள்",
+        contactUs: "தொடர்பு கொள்ளவும்",
+        goToDashboard: "டாஷ்போர்டுக்குச் செல்லவும்",
+        welcomeMessage: "வணக்கம்! உழவர் ஒளி-க்கு வரவேற்கிறோம். உங்கள் விவசாய பயணத்தில் உதவ நாங்கள் இங்கே இருக்கிறோம்.",
+        pageTitle: "உழவர் ஒளி - தமிழக விவசாயிகளை மேம்படுத்துதல்",
+        pageDescription: "உழவர் ஒளி - தமிழக விவசாயிகளுக்கான நவீன விவசாய கருவிகள் மற்றும் வளங்கள்",
+        culturalIconText: "தமிழ்நாடு",
+        culturalIconAlt: "தமிழ்நாடு பண்பாட்டு சின்னம்"
     }
 };
 
@@ -161,6 +191,16 @@ const AgriApp = {
                 }
             });
         });
+        
+        // Add event listeners to feature cards
+        if (this.elements.featureCards) {
+            this.elements.featureCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const featureType = card.getAttribute('data-feature');
+                    this.handleFeatureCardClick(featureType);
+                });
+            });
+        }
         
         // Add scroll event for navbar and section highlighting
         window.addEventListener('scroll', () => {
@@ -376,11 +416,22 @@ const AgriApp = {
     },
     
     updateLanguage(lang) {
+        // Update HTML lang attribute
+        document.documentElement.lang = lang;
+        
+        // Update page title and meta description
+        document.title = translations[lang].pageTitle;
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+            metaDescription.setAttribute('content', translations[lang].pageDescription);
+        }
+        
         // Update navigation items
         this.elements.navItems.forEach((item, index) => {
-            if (index === 0) item.textContent = translations[lang].home;
-            if (index === 1) item.textContent = translations[lang].services;
-            if (index === 2) item.textContent = translations[lang].about;
+            const key = item.textContent.trim().toLowerCase();
+            if (translations[lang][key]) {
+                item.textContent = translations[lang][key];
+            }
         });
         
         // Update language dropdown
@@ -388,35 +439,95 @@ const AgriApp = {
             this.elements.languageDropdown.innerHTML = translations[lang].languages + ' <i class="fas fa-chevron-down"></i>';
         }
         
-        // Update hero section
-        this.elements.heroHeading.textContent = translations[lang].heroHeading;
-        this.elements.heroSubheading.textContent = translations[lang].heroSubheading;
+        // Update cultural icon
+        const culturalIconText = document.querySelector('.icon-text');
+        const culturalIconImg = document.querySelector('.cultural-icon img');
+        if (culturalIconText) {
+            culturalIconText.textContent = lang === 'ta' ? 'தமிழ்நாடு' : 'TN';
+        }
+        if (culturalIconImg) {
+            culturalIconImg.setAttribute('alt', translations[lang].culturalIconAlt);
+        }
         
-        // Only update the button text if not logged in
-        if (this.elements.getStartedBtn && !this.state.isLoggedIn) {
-            this.elements.getStartedBtn.textContent = translations[lang].getStarted;
-        } else if (this.elements.getStartedBtn && this.state.isLoggedIn) {
-            this.elements.getStartedBtn.textContent = lang === 'en' ? 'Go to Dashboard' : 'டாஷ்போர்டுக்குச் செல்லவும்';
+        // Update hero section
+        if (this.elements.heroHeading) {
+            this.elements.heroHeading.textContent = translations[lang].heroHeading;
+        }
+        if (this.elements.heroSubheading) {
+            this.elements.heroSubheading.textContent = translations[lang].heroSubheading;
+        }
+        
+        // Update get started button
+        if (this.elements.getStartedBtn) {
+            if (this.state.isLoggedIn) {
+                this.elements.getStartedBtn.textContent = translations[lang].goToDashboard;
+            } else {
+                this.elements.getStartedBtn.textContent = translations[lang].getStarted;
+            }
         }
         
         // Update features section
-        this.elements.sectionTitle.textContent = translations[lang].featuresTitle;
+        if (this.elements.sectionTitle) {
+            this.elements.sectionTitle.textContent = translations[lang].featuresTitle;
+        }
         
-        // Update feature titles
-        this.elements.featureTitles.forEach((title, index) => {
-            if (index === 0) title.textContent = translations[lang].weatherDetails;
-            if (index === 1) title.textContent = translations[lang].cropDisease;
-            if (index === 2) title.textContent = translations[lang].marketPrices;
-            if (index === 3) title.textContent = translations[lang].govtSchemes;
-            if (index === 4) title.textContent = translations[lang].youtubeRefs;
-            if (index === 5) title.textContent = translations[lang].expertSuggestions;
+        // Update feature cards
+        this.elements.featureCards.forEach(card => {
+            const featureKey = card.getAttribute('data-feature');
+            const title = card.querySelector('.feature-title');
+            const description = card.querySelector('p');
+            
+            if (featureKey && title && description && translations[lang][featureKey]) {
+                title.textContent = translations[lang][featureKey];
+                description.textContent = translations[lang][`${featureKey}Desc`];
+            }
         });
         
         // Update about section
-        this.elements.aboutText.textContent = translations[lang].aboutText;
+        if (this.elements.aboutText) {
+            this.elements.aboutText.textContent = translations[lang].aboutText;
+        }
         
         // Update footer
-        this.elements.footerQuote.innerHTML = translations[lang].footerQuote;
+        if (this.elements.footerQuote) {
+            this.elements.footerQuote.innerHTML = translations[lang].footerQuote;
+        }
+        
+        // Update footer links
+        const footerLinks = document.querySelectorAll('.footer-links a');
+        footerLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === 'login.html') {
+                link.textContent = translations[lang].login;
+            } else if (href === 'privacy-policy.html') {
+                link.textContent = translations[lang].privacyPolicy;
+            } else if (href === 'terms.html') {
+                link.textContent = translations[lang].termsOfService;
+            } else if (href === 'contact.html') {
+                link.textContent = translations[lang].contactUs;
+            }
+        });
+        
+        // Update news ticker
+        this.updateNewsTickerForLanguage();
+        
+        // Update account icon tooltip
+        const accountIcon = document.querySelector('.account-icon .tooltip');
+        if (accountIcon) {
+            accountIcon.textContent = this.state.isLoggedIn ? translations[lang].logout : translations[lang].login;
+        }
+        
+        // Update account icon title and aria-label
+        const accountIconLink = document.querySelector('.account-icon a');
+        if (accountIconLink) {
+            const loginStatus = this.state.isLoggedIn ? translations[lang].logout : translations[lang].login;
+            accountIconLink.setAttribute('title', loginStatus);
+            accountIconLink.setAttribute('aria-label', loginStatus);
+        }
+        
+        // Save language preference
+        localStorage.setItem('agri-lang', lang);
+        this.state.currentLanguage = lang;
     },
     
     setupSmoothScrolling() {
@@ -584,6 +695,33 @@ const AgriApp = {
         if (this.prefersReducedMotion) {
             // Apply reduced motion styles
             document.documentElement.classList.add('reduced-motion');
+        }
+    },
+    
+    handleFeatureCardClick(featureType) {
+        // Handle different feature card clicks
+        switch(featureType) {
+            case 'weatherDetails':
+                window.location.href = 'weather.html';
+                break;
+            case 'marketPrices':
+                window.location.href = 'market-prices.html';
+                break;
+            case 'cropDisease':
+                window.location.href = 'crop-disease.html';
+                break;
+            case 'govtSchemes':
+                window.location.href = 'govt-schemes.html';
+                break;
+            case 'youtubeRefs':
+                window.location.href = 'youtube-references.html';
+                break;
+            case 'expertSuggestions':
+                window.location.href = 'expert-suggestions.html';
+                break;
+            default:
+                // For any undefined feature, log a message
+                console.log(`Navigation for ${featureType} is not yet implemented`);
         }
     },
     

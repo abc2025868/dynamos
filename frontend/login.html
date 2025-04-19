@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AgriAssist - Login to access smart agriculture tools for Tamil Nadu farmers">
+    <title>Login - AgriAssist</title>
+    
+    <!-- PWA Support -->
+    <meta name="theme-color" content="#2E7D32">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="assets/logo.png" alt="AgriAssist Logo">
+            <span>AgriAssist</span>
+        </a>
+        <div class="navbar-links">
+            <a href="index.html"><i class="fas fa-home"></i> Return to Home</a>
+        </div>
+    </nav>
+
+    <!-- Cultural Icon -->
+    <div class="cultural-icon">
+        <div class="icon-container">
+            <img src="assets/cultural-icon.png" alt="Tamil Nadu Cultural Symbol">
+            <span class="icon-text">TN</span>
+        </div>
+    </div>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-image"></div>
+        <div class="login-content">
+            <div class="login-header">
+                <h2>Welcome to AgriAssist</h2>
+                <p>Login or create an account to access personalized agricultural insights and services</p>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="signup">Sign Up</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="login-form" class="active-form">
+                <div class="form-group">
+                    <label for="login-email">Email / Phone Number</label>
+                    <input type="text" id="login-email" placeholder="Enter your email or phone number" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <div class="password-field-container">
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                        <i class="toggle-password fas fa-eye-slash"></i>
+                    </div>
+                </div>
+                
+                <div class="form-footer">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="btn">Login</button>
+                
+                <div class="alt-login">
+                    <p>Or login with</p>
+                    
+                    <div class="social-login">
+                        <button type="button" class="social-btn google">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button type="button" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button type="button" class="social-btn twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            
+            <!-- Signup Form -->
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" placeholder="Enter your email address" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-phone">Phone Number</label>
+                    <input type="tel" id="signup-phone" placeholder="Enter your phone number" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <div class="password-field-container">
+                        <input type="password" id="signup-password" placeholder="Create a strong password" required>
+                        <i class="toggle-password fas fa-eye-slash"></i>
+                    </div>
+                </div>
+                
+                <div class="terms-container">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the <a href="terms.html">Terms of Service</a> and <a href="privacy-policy.html">Privacy Policy</a></label>
+                </div>
+                
+                <button type="submit" class="btn">Create Account</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Footer Links -->
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <span class="divider">|</span>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <span class="divider">|</span>
+        <a href="terms.html">Terms of Service</a>
+        <span class="divider">|</span>
+        <a href="contact.html">Contact Us</a>
+    </div>
+    
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button class="lang-btn" data-lang="en">English</button>
+        <button class="lang-btn" data-lang="ta">தமிழ்</button>
+    </div>
+    
+    <!-- Copyright -->
+    <div class="copyright">
+        &copy; <span id="current-year">2023</span> AgriAssist. All rights reserved.
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="login.js"></script>
+    <script>
+        // Update copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Language selector
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const currentLang = localStorage.getItem('agri-lang') || 'en';
+        
+        // Set active language
+        langButtons.forEach(btn => {
+            if (btn.getAttribute('data-lang') === currentLang) {
+                btn.classList.add('active');
+            }
+            
+            btn.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                localStorage.setItem('agri-lang', lang);
+                window.location.reload();
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:Frontend/market-prices.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -292,4 +293,300 @@
         document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Live crop market prices in Tamil Nadu - AgriAssist">
+    <title>Market Prices - AgriAssist</title>
+    
+    <!-- PWA Support -->
+    <meta name="theme-color" content="#2E7D32">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- html2pdf for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="market-prices.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/logo.png" alt="AgriAssist Logo" width="180">
+                </a>
+            </div>
+            <div class="navbar-menu">
+                <a href="index.html" class="menu-item" data-lang="home">Home</a>
+                <a href="index.html#features" class="menu-item" data-lang="services">Services</a>
+                <a href="index.html#about" class="menu-item" data-lang="about">About</a>
+                <div class="language-dropdown">
+                    <a href="#" class="menu-item" data-lang="languages">Languages <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#" class="lang-option" data-lang="en">English</a>
+                        <a href="#" class="lang-option" data-lang="ta">தமிழ்</a>
+                    </div>
+                </div>
+                <div class="account-icon">
+                    <a href="login.html" title="Login" aria-label="Login or manage account" data-lang="login">
+                        <i class="fas fa-user-circle"></i>
+                    </a>
+                    <div class="tooltip" data-lang="login">Login</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="market-header">
+        <div class="back-button">
+            <a href="index.html" aria-label="Back to home">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+        <h1 class="market-title">Live Crop Market Prices in Tamil Nadu</h1>
+        <p class="market-subtitle">Updated hourly with actual market data from across the state</p>
+    </div>
+
+    <!-- Main Content -->
+    <main class="market-container">
+        <!-- Filter Panel -->
+        <section class="filters-panel">
+            <div class="filter-group">
+                <label for="district-select">Select District</label>
+                <select id="district-select" class="filter-select">
+                    <option value="all">All Tamil Nadu</option>
+                    <option value="chennai">Chennai</option>
+                    <option value="coimbatore">Coimbatore</option>
+                    <option value="madurai">Madurai</option>
+                    <option value="trichy">Trichy</option>
+                    <option value="salem">Salem</option>
+                    <option value="tirunelveli">Tirunelveli</option>
+                    <option value="vellore">Vellore</option>
+                    <option value="erode">Erode</option>
+                    <option value="thanjavur">Thanjavur</option>
+                    <option value="dindigul">Dindigul</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="crop-select">Select Crop</label>
+                <select id="crop-select" class="filter-select">
+                    <option value="rice">Rice (Paddy)</option>
+                    <option value="tomato">Tomato</option>
+                    <option value="onion">Onion</option>
+                    <option value="potato">Potato</option>
+                    <option value="brinjal">Brinjal</option>
+                    <option value="banana">Banana</option>
+                    <option value="sugarcane">Sugarcane</option>
+                    <option value="coconut">Coconut</option>
+                    <option value="cotton">Cotton</option>
+                    <option value="groundnut">Groundnut</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="date-range">Time Period</label>
+                <select id="date-range" class="filter-select">
+                    <option value="7">Last 7 days</option>
+                    <option value="30">Last 30 days</option>
+                    <option value="90">Last 3 months</option>
+                    <option value="180">Last 6 months</option>
+                </select>
+            </div>
+            
+            <div class="market-actions">
+                <button id="update-btn" class="btn-primary">
+                    <i class="fas fa-sync-alt"></i> Update Prices
+                </button>
+                <button id="voice-btn" class="btn-secondary">
+                    <i class="fas fa-volume-up"></i> Read Aloud
+                </button>
+                <button id="pdf-btn" class="btn-secondary">
+                    <i class="fas fa-file-pdf"></i> Save as PDF
+                </button>
+            </div>
+        </section>
+        
+        <!-- Price Display Section -->
+        <section class="price-display">
+            <div class="current-price-card">
+                <div class="price-header">
+                    <h3 id="current-crop">Rice (Paddy)</h3>
+                    <span class="price-badge" id="price-trend">↑ Rising</span>
+                </div>
+                <div class="price-amount">
+                    <span class="currency">₹</span>
+                    <span id="current-price">2,345</span>
+                    <span class="unit">per quintal</span>
+                </div>
+                <div class="price-range">
+                    <div class="range-item">
+                        <span class="range-label">Min</span>
+                        <span id="min-price">₹2,100</span>
+                    </div>
+                    <div class="range-item">
+                        <span class="range-label">Max</span>
+                        <span id="max-price">₹2,500</span>
+                    </div>
+                    <div class="range-item">
+                        <span class="range-label">Avg</span>
+                        <span id="avg-price">₹2,345</span>
+                    </div>
+                </div>
+                <div class="price-updated">
+                    <span id="last-updated">Last updated: 2 hours ago</span>
+                </div>
+            </div>
+            
+            <!-- Chart Containers -->
+            <div class="charts-container">
+                <div class="chart-card">
+                    <h3>Price Trends (Last 7 Days)</h3>
+                    <div class="chart-container">
+                        <canvas id="trend-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <h3>District Comparison</h3>
+                    <div class="chart-container">
+                        <canvas id="district-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Farmer Insights Section -->
+        <section class="insights-section" id="farmer-insights">
+            <h2>Farmer Insights</h2>
+            
+            <div class="insights-cards">
+                <div class="insight-card">
+                    <div class="insight-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Price Trend</h3>
+                    <p id="trend-insight">Prices have been increasing steadily for the past 7 days, with a 5% rise compared to last week.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Seasonal Pattern</h3>
+                    <p id="seasonal-insight">Current prices are higher than the seasonal average. This is a typical pattern for this time of year.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Recommendation</h3>
+                    <p id="recommendation">Consider selling now as prices are above average and trending upward. Monitor for 2-3 more days if you want to maximize returns.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Market Query Form -->
+        <section class="query-section">
+            <h2>Didn't find your crop or price?</h2>
+            <p>Submit a query and our team will get back to you with the information you need.</p>
+            
+            <form id="query-form" class="query-form">
+                <div class="form-group">
+                    <label for="farmer-name">Your Name</label>
+                    <input type="text" id="farmer-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="crop-query">Crop Name</label>
+                    <input type="text" id="crop-query" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Your Location</label>
+                    <input type="text" id="location" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="tel" id="mobile" pattern="[0-9]{10}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="comments">Additional Comments (Optional)</label>
+                    <textarea id="comments" rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary">Submit Query</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="footer-quote">
+            <p>Make <span class="highlight">informed</span> decisions with real-time <span class="highlight">market data</span> to maximize your farming <span class="highlight">profits</span>.</p>
+        </div>
+        <div class="footer-links">
+            <a href="login.html">Login</a>
+            <span class="divider">|</span>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <span class="divider">|</span>
+            <a href="terms.html">Terms of Service</a>
+            <span class="divider">|</span>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="copyright">
+            &copy; <span id="current-year">2023</span> AgriAssist. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+    <script src="market-prices.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(function(error) {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
+        
+        // Update copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+>>>>>>> b74ab611ed42d3d6ed2897dabf17c71efad09afa:frontend/market-prices.html
 </html> 

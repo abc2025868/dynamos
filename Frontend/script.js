@@ -1,5 +1,5 @@
 // Language switcher functionality
-const translations = {
+window.translations = {
     en: {
         home: "Home",
         services: "Services",
@@ -38,7 +38,32 @@ const translations = {
         termsOfService: "Terms of Service",
         contactUs: "Contact Us",
         goToDashboard: "Go to Dashboard",
-        welcomeMessage: "Welcome to Uzhavar Oli! 🌱 We're here to help you on your farming journey."
+        welcomeMessage: "Welcome to Uzhavar Oli! 🌱 We're here to help you on your farming journey.",
+        
+        // Weather page specific translations
+        search: "Search",
+        loadingWeather: "Loading weather data...",
+        refreshWeather: "Refresh weather data",
+        feelsLike: "Feels Like",
+        humidity: "Humidity",
+        windSpeed: "Wind Speed",
+        windDirection: "Wind Direction",
+        sunrise: "Sunrise",
+        sunset: "Sunset",
+        farmingRecommendations: "Farming Recommendations",
+        locationPlaceholder: "Enter city or district name (e.g., Chennai, Madurai)",
+        favorableConditions: "Weather conditions are favorable for regular farming activities.",
+        highTempAlert: "High temperature alert! Ensure adequate irrigation for crops.",
+        provideShade: "Consider providing shade for sensitive crops.",
+        lowTempAlert: "Low temperature alert! Protect cold-sensitive crops with covers.",
+        highHumidityAlert: "High humidity may increase disease risk. Monitor crops for fungal infections.",
+        lowHumidityAlert: "Low humidity alert! Ensure adequate watering to prevent dehydration.",
+        rainfallExpected: "Rainfall expected. Avoid spraying pesticides or fertilizers.",
+        checkDrainage: "Check drainage systems to prevent waterlogging.",
+        clearWeather: "Clear weather is good for spraying operations if needed.",
+        cloudyConditions: "Cloudy conditions are favorable for transplanting seedlings.",
+        stormAlert: "Storm alert! Secure loose items and provide support for tall crops.",
+        strongWinds: "Strong winds may affect spraying operations. Consider postponing if possible."
     },
     ta: {
         home: "முகப்பு",
@@ -78,12 +103,38 @@ const translations = {
         pageTitle: "உழவர் ஒளி - தமிழக விவசாயிகளை மேம்படுத்துதல்",
         pageDescription: "உழவர் ஒளி - தமிழக விவசாயிகளுக்கான நவீன விவசாய கருவிகள் மற்றும் வளங்கள்",
         culturalIconText: "தமிழ்நாடு",
-        culturalIconAlt: "தமிழ்நாடு பண்பாட்டு சின்னம்"
+        culturalIconAlt: "தமிழ்நாடு பண்பாட்டு சின்னம்",
+        
+        // Weather page specific translations
+        search: "தேடல்",
+        loadingWeather: "வானிலை தரவு ஏற்றப்படுகிறது...",
+        refreshWeather: "வானிலை தரவைப் புதுப்பிக்கவும்",
+        feelsLike: "உணர்கிறது",
+        humidity: "ஈரப்பதம்",
+        windSpeed: "காற்றின் வேகம்",
+        windDirection: "காற்றின் திசை",
+        sunrise: "சூரிய உதயம்",
+        sunset: "சூரிய அஸ்தமனம்",
+        farmingRecommendations: "விவசாய பரிந்துரைகள்",
+        locationPlaceholder: "நகரம் அல்லது மாவட்டத்தின் பெயரை உள்ளிடவும் (எ.கா., சென்னை, மதுரை)",
+        favorableConditions: "வழக்கமான விவசாய நடவடிக்கைகளுக்கு வானிலை நிலைமைகள் சாதகமாக உள்ளன.",
+        highTempAlert: "அதிக வெப்பநிலை எச்சரிக்கை! பயிர்களுக்கு போதுமான நீர்ப்பாசனம் உறுதிசெய்யவும்.",
+        provideShade: "உணர்திறன் கொண்ட பயிர்களுக்கு நிழல் வழங்க பரிசீலிக்கவும்.",
+        lowTempAlert: "குறைந்த வெப்பநிலை எச்சரிக்கை! குளிர்-உணர்திறன் கொண்ட பயிர்களை கவர்களால் பாதுகாக்கவும்.",
+        highHumidityAlert: "அதிக ஈரப்பதம் நோய் ஏற்படும் அபாயத்தை அதிகரிக்கலாம். பூஞ்சை நோய்த்தொற்றுகளுக்காக பயிர்களை கண்காணிக்கவும்.",
+        lowHumidityAlert: "குறைந்த ஈரப்பதம் எச்சரிக்கை! நீரிழப்பைத் தடுக்க போதுமான நீர் பாய்ச்சுதலை உறுதிசெய்யவும்.",
+        rainfallExpected: "மழை எதிர்பார்க்கப்படுகிறது. பூச்சிக்கொல்லிகள் அல்லது உரங்களை தெளிப்பதைத் தவிர்க்கவும்.",
+        checkDrainage: "நீர் தேக்கத்தைத் தடுக்க வடிகால் அமைப்புகளை சரிபார்க்கவும்.",
+        clearWeather: "தெளிவான வானிலை நன்மை. தேவைப்பட்டால் தெளிப்பு செயல்பாடுகளுக்கு நல்ல நிலைமைகள்.",
+        cloudyConditions: "சிறந்த நடவு நிலைமைகள். மேகமூட்டமான நிலைமைகள் நாற்றுகளை நடவு செய்வதற்கு சாதகமானது.",
+        stormAlert: "புயல் எச்சரிக்கை! தளர்வான பொருட்களை பாதுகாத்து உயரமான பயிர்களுக்கு ஆதரவு அளிக்கவும்.",
+        strongWinds: "வலுவான காற்றுகள். வலுவான காற்றுகள் தெளிப்பு செயல்பாடுகளை பாதிக்கலாம். முடிந்தால் ஒத்திவைக்க பரிசீலிக்கவும்.",
+        favorableConditions: "சாதகமான நிலைமைகள். வானிலை நிலைமைகள் வழக்கமான விவசாய நடவடிக்கைகளுக்கு சாதகமாக உள்ளன."
     }
 };
 
 // Application state management
-const AgriApp = {
+window.AgriApp = {
     state: {
         currentLanguage: localStorage.getItem('agri-lang') || 'en',
         hasVisited: localStorage.getItem('agri-visited') || false,

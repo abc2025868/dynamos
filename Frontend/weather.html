@@ -162,9 +162,26 @@
         }
         
         .weather-header h2 {
+            color: #2E7D32;
             font-size: 1.8rem;
             margin: 0;
             font-weight: 600;
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+            position: relative;
+            padding-left: 1.5rem;
+            z-index: 1;
+        }
+        
+        .recommendation-header h2:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 24px;
+            background: #4CAF50;
+            border-radius: 4px;
         }
         
         .weather-header p {
@@ -371,6 +388,735 @@
             margin-right: 8px;
             color: #FFC107;
         }
+        
+        /* Redesigned Farming Recommendations Styles */
+        .recommendation-section {
+            background: linear-gradient(to bottom, #f9f9f9, #ffffff);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            margin-top: 2rem;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .recommendation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.9) 30%, rgba(76, 175, 80, 0.1) 70%, rgba(46, 125, 50, 0.2) 100%), 
+                        linear-gradient(135deg, #f9f9f9 0%, #e8f5e9 100%);
+            background-size: contain;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .recommendation-header:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 30%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%234CAF50" fill-opacity="0.1" d="M30,10 Q50,0 70,10 T90,40 T60,80 T20,60 T30,10 Z"/><path fill="%232E7D32" fill-opacity="0.1" d="M60,20 Q80,30 70,50 T40,70 T20,40 T60,20 Z"/></svg>') repeat-y right center;
+            background-size: 40%;
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .recommendation-header h2 {
+            color: #2E7D32;
+            font-size: 1.8rem;
+            margin: 0;
+            font-weight: 600;
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+            position: relative;
+            padding-left: 1.5rem;
+            z-index: 1;
+        }
+        
+        .recommendation-header h2:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 24px;
+            background: #4CAF50;
+            border-radius: 4px;
+        }
+        
+        .language-toggle {
+            display: flex;
+            background: #f0f4f1;
+            border-radius: 30px;
+            padding: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .toggle-btn {
+            border: none;
+            background: transparent;
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-btn.active {
+            background: #4CAF50;
+            color: white;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        }
+        
+        .rec-filter-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+            padding: 8px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .rec-filter-btn {
+            padding: 6px 12px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .rec-filter-btn:hover {
+            border-color: #4CAF50;
+            transform: translateY(-2px);
+        }
+        
+        .rec-filter-btn.active {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        
+        .rec-filter-btn i {
+            font-size: 0.75rem;
+        }
+        
+        .recommendation-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .recommendation-card {
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .recommendation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-warning {
+            background: linear-gradient(135deg, #FFEBEE 0%, #FFCCBC 100%);
+            border-left: 4px solid #F44336;
+        }
+        
+        .card-alert {
+            background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
+            border-left: 4px solid #FFC107;
+        }
+        
+        .card-info {
+            background: linear-gradient(135deg, #E1F5FE 0%, #B3E5FC 100%);
+            border-left: 4px solid #03A9F4;
+        }
+        
+        .card-success {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255,255,255,0.6);
+            margin-right: 12px;
+        }
+        
+        .card-icon i {
+            font-size: 1.4rem;
+            color: #555;
+        }
+        
+        .card-warning .card-icon i {
+            color: #F44336;
+        }
+        
+        .card-alert .card-icon i {
+            color: #FF9800;
+        }
+        
+        .card-info .card-icon i {
+            color: #03A9F4;
+        }
+        
+        .card-success .card-icon i {
+            color: #4CAF50;
+        }
+        
+        .card-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .audio-btn, .share-btn {
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .audio-btn:hover, .share-btn:hover {
+            background: white;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .audio-btn i, .share-btn i {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .card-title-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        
+        .card-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.3;
+        }
+        
+        .card-content {
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+        
+        .card-expanded {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        
+        .card-expanded.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .card-expanded h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .card-expanded h4 i {
+            color: #4CAF50;
+            font-size: 0.8rem;
+        }
+        
+        .card-expanded ul {
+            padding-left: 1.2rem;
+            margin: 0 0 0.75rem 0;
+        }
+        
+        .card-expanded li {
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            position: relative;
+        }
+        
+        .read-more-btn {
+            color: #2E7D32;
+            background: rgba(76, 175, 80, 0.1);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 4px;
+        }
+        
+        .read-more-btn:hover {
+            background: rgba(76, 175, 80, 0.2);
+        }
+        
+        .importance-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #F44336;
+            color: white;
+            border-radius: 20px;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+        
+        .no-recommendations {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: #f9f9f9;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+        
+        .no-recommendations i {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+        
+        .no-recommendations p {
+            color: #777;
+            font-size: 1.1rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .audio-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(46, 125, 50, 0.1);
+            color: #2E7D32;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            margin-left: 8px;
+            gap: 3px;
+        }
+        
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .recommendation-header {
+                flex-direction: column;
+                align-items: flex-start;
+                background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(76, 175, 80, 0.1) 70%, rgba(46, 125, 50, 0.2) 100%), 
+                            linear-gradient(135deg, #f9f9f9 0%, #e8f5e9 100%);
+                padding: 1rem;
+            }
+            
+            .recommendation-header:after {
+                width: 100%;
+                height: 30%;
+                top: auto;
+                bottom: 0;
+                background-size: 25%;
+                opacity: 0.2;
+            }
+            
+            .language-toggle {
+                margin-top: 1rem;
+                align-self: flex-start;
+            }
+            
+            .recommendation-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .rec-filter-container {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 12px;
+            }
+            
+            .rec-filter-btn {
+                flex-shrink: 0;
+            }
+        }
+        
+        /* Weekly Forecast Styles */
+        .forecast-section {
+            background: linear-gradient(to bottom, #f9f9f9, #ffffff);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            margin-top: 2rem;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .forecast-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.9) 30%, rgba(25, 118, 210, 0.1) 70%, rgba(3, 169, 244, 0.2) 100%), 
+                        linear-gradient(135deg, #f9f9f9 0%, #e3f2fd 100%);
+            background-size: contain;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .forecast-header:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 30%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%232196F3" fill-opacity="0.1" d="M30,10 Q50,0 70,10 T90,40 T60,80 T20,60 T30,10 Z"/><path fill="%231976D2" fill-opacity="0.1" d="M60,20 Q80,30 70,50 T40,70 T20,40 T60,20 Z"/></svg>') repeat-y right center;
+            background-size: 40%;
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .forecast-header h2 {
+            color: #1976D2;
+            font-size: 1.8rem;
+            margin: 0;
+            font-weight: 600;
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+            position: relative;
+            padding-left: 1.5rem;
+            z-index: 1;
+        }
+        
+        .forecast-header h2:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 24px;
+            background: #2196F3;
+            border-radius: 4px;
+        }
+        
+        .crisis-badge {
+            background: #FFC107;
+            color: #433000;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+            animation: pulse 2s infinite;
+            z-index: 1;
+        }
+        
+        .crisis-badge i {
+            font-size: 1rem;
+            color: #F44336;
+        }
+        
+        .forecast-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            scroll-behavior: smooth;
+        }
+        
+        .forecast-card {
+            min-width: 140px;
+            flex: 0 0 140px;
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .forecast-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+        
+        .forecast-day {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1976D2;
+            margin-bottom: 0.5rem;
+        }
+        
+        .forecast-date {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+        
+        .forecast-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .forecast-temp {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .forecast-description {
+            font-size: 0.8rem;
+            text-align: center;
+            color: #555;
+        }
+        
+        .crisis-management, .preventive-measures {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .crisis-management h3, .preventive-measures h3 {
+            color: #1976D2;
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .crisis-management h3 i {
+            color: #F44336;
+        }
+        
+        .preventive-measures h3 i {
+            color: #4CAF50;
+        }
+        
+        .crisis-content {
+            margin-bottom: 1rem;
+        }
+        
+        .crisis-card {
+            background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
+            border-left: 4px solid #FFC107;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .crisis-icon {
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+        
+        .crisis-icon i {
+            font-size: 1.2rem;
+            color: #F44336;
+        }
+        
+        .crisis-details h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .crisis-details p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .measures-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        
+        .measure-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .measure-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .measure-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+        
+        .measure-icon {
+            width: 48px;
+            height: 48px;
+            background: #E3F2FD;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .measure-icon i {
+            font-size: 1.5rem;
+            color: #1976D2;
+        }
+        
+        .measure-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #333;
+            margin: 0;
+        }
+        
+        .measure-content {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .measure-content ul {
+            padding-left: 1.5rem;
+            margin: 0.75rem 0 0 0;
+        }
+        
+        .measure-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .forecast-container {
+                padding-bottom: 1rem;
+            }
+            
+            .forecast-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .crisis-badge {
+                margin-top: 1rem;
+                align-self: flex-start;
+            }
+            
+            .measures-container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -404,14 +1150,14 @@
     </nav>
 
     <div class="page-header">
-        <h1>Weather Details</h1>
-        <p>Get accurate weather forecasts for your location to plan your farming activities</p>
+        <h1 data-lang="weatherDetails">Weather Details</h1>
+        <p data-lang="weatherDetailsDesc">Get accurate weather forecasts for your location to plan your farming activities</p>
     </div>
 
     <div class="weather-container">
         <div class="search-container">
-            <input type="text" id="location-input" placeholder="Enter city or district name (e.g., Chennai, Madurai)">
-            <button id="search-btn"><i class="fas fa-search"></i> Search</button>
+            <input type="text" id="location-input" placeholder="Enter city or district name (e.g., Chennai, Madurai)" data-placeholder="locationPlaceholder">
+            <button id="search-btn"><i class="fas fa-search"></i> <span data-lang="search">Search</span></button>
         </div>
         
         <div class="error-message" id="error-msg">
@@ -421,7 +1167,7 @@
         
         <div class="loading" id="loading">
             <i class="fas fa-spinner"></i>
-            <p>Loading weather data...</p>
+            <p data-lang="loadingWeather">Loading weather data...</p>
         </div>
         
         <div id="weather-content">
@@ -431,7 +1177,7 @@
                         <h2 id="location">Chennai, Tamil Nadu</h2>
                         <p id="date-time">Loading date and time...</p>
                     </div>
-                    <button id="refresh-btn" title="Refresh weather data">
+                    <button id="refresh-btn" title="Refresh weather data" data-title="refreshWeather">
                         <i class="fas fa-sync-alt"></i>
                     </button>
                 </div>
@@ -447,42 +1193,106 @@
                 <div class="weather-details">
                     <div class="weather-item">
                         <i class="fas fa-thermometer-half"></i>
-                        <span>Feels Like</span>
+                        <span data-lang="feelsLike">Feels Like</span>
                         <strong id="feels-like">34°C</strong>
                     </div>
                     <div class="weather-item">
                         <i class="fas fa-tint"></i>
-                        <span>Humidity</span>
+                        <span data-lang="humidity">Humidity</span>
                         <strong id="humidity">65%</strong>
                     </div>
                     <div class="weather-item">
                         <i class="fas fa-wind"></i>
-                        <span>Wind Speed</span>
+                        <span data-lang="windSpeed">Wind Speed</span>
                         <strong id="wind-speed">12 km/h</strong>
                     </div>
                     <div class="weather-item">
                         <i class="fas fa-compass"></i>
-                        <span>Wind Direction</span>
+                        <span data-lang="windDirection">Wind Direction</span>
                         <strong id="wind-direction">NE</strong>
                     </div>
                     <div class="weather-item">
                         <i class="fas fa-sun"></i>
-                        <span>Sunrise</span>
+                        <span data-lang="sunrise">Sunrise</span>
                         <strong id="sunrise">6:05 AM</strong>
                     </div>
                     <div class="weather-item">
                         <i class="fas fa-moon"></i>
-                        <span>Sunset</span>
+                        <span data-lang="sunset">Sunset</span>
                         <strong id="sunset">6:15 PM</strong>
                     </div>
                 </div>
             </div>
             
             <div class="farming-recommendations" id="recommendations">
-                <h3>Farming Recommendations</h3>
+                <h3 data-lang="farmingRecommendations">Farming Recommendations</h3>
                 <ul id="recommendation-list">
                     <!-- Recommendations will be populated here based on weather conditions -->
                 </ul>
+            </div>
+
+            <!-- Redesigned Farming Recommendations Section -->
+            <div class="recommendation-section">
+                <div class="recommendation-header">
+                    <h2 data-lang="farmingRecommendations">Farming Recommendations</h2>
+                    <div class="language-toggle">
+                        <button class="toggle-btn active" data-rec-lang="en">English</button>
+                        <button class="toggle-btn" data-rec-lang="ta">தமிழ்</button>
+                    </div>
+                </div>
+                
+                <div class="rec-filter-container">
+                    <button class="rec-filter-btn active" data-filter="all">
+                        <i class="fas fa-filter"></i> All
+                    </button>
+                    <button class="rec-filter-btn" data-filter="warning">
+                        <i class="fas fa-exclamation-circle"></i> Alerts
+                    </button>
+                    <button class="rec-filter-btn" data-filter="success">
+                        <i class="fas fa-check-circle"></i> Opportunities
+                    </button>
+                    <button class="rec-filter-btn" data-filter="info">
+                        <i class="fas fa-info-circle"></i> Tips
+                    </button>
+                </div>
+                
+                <div class="recommendation-container" id="recommendation-cards">
+                    <!-- Cards will be generated dynamically based on weather conditions -->
+                </div>
+                
+                <div class="no-recommendations" id="no-recommendations" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <p data-lang="noRecommendations">No recommendations for current weather conditions</p>
+                </div>
+            </div>
+            
+            <!-- Weekly Forecast and Crisis Management Section -->
+            <div class="forecast-section">
+                <div class="forecast-header">
+                    <h2 data-lang="weeklyForecast">Weekly Forecast</h2>
+                    <div class="crisis-badge" id="crisis-badge">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span data-lang="crisisAlert">Weather Crisis Alert</span>
+                    </div>
+                </div>
+                
+                <div class="forecast-container" id="forecast-container">
+                    <!-- Weekly forecast will be populated here -->
+                </div>
+                
+                <div class="crisis-management">
+                    <h3><i class="fas fa-shield-alt"></i> <span data-lang="crisisManagement">Crisis Management & Prevention</span></h3>
+                    <div class="crisis-content" id="crisis-content">
+                        <!-- Crisis management content will be populated here -->
+                    </div>
+                </div>
+                
+                <div class="preventive-measures">
+                    <h3><i class="fas fa-hand-holding-medical"></i> <span data-lang="preventiveMeasures">Preventive Measures</span></h3>
+                    <div class="measures-container" id="measures-container">
+                        <!-- Preventive measures will be populated here -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -525,6 +1335,9 @@
 
     <!-- Weather JavaScript -->
     <script>
+        // Access translations from script.js
+        let translations = null;
+        
         // API key provided by user
         const API_KEY = '0ffe4b07e3a4446dcf5a2189ed7e7d03';
         // Backup API key in case the primary one fails
@@ -559,7 +1372,7 @@
             "cod": 200
         };
         
-        // Elements
+        // Elements - declare at the top of the script to avoid reference errors
         const locationInput = document.getElementById('location-input');
         const searchBtn = document.getElementById('search-btn');
         const refreshBtn = document.getElementById('refresh-btn');
@@ -567,6 +1380,10 @@
         const errorText = document.getElementById('error-text');
         const loading = document.getElementById('loading');
         const weatherContent = document.getElementById('weather-content');
+        
+        // Initialize loading and content visibility
+        if (loading) loading.style.display = 'none';
+        if (weatherContent) weatherContent.style.display = 'none';
         
         // Weather data elements
         const locationElement = document.getElementById('location');
@@ -618,8 +1435,12 @@
             displayWeatherData(chenniWeatherFallback);
             console.log("Showing Chennai weather from fallback data");
             
-            // Start loading spinner for API data
-            loading.style.display = 'block';
+            // Hide loading spinner after displaying data
+            loading.style.display = 'none';
+            
+            // Ensure weather content is visible
+            weatherContent.style.opacity = 1;
+            weatherContent.style.display = 'flex';
             
             // Try to get actual weather from API
             fetchWeatherByLocation(defaultLocation)
@@ -630,6 +1451,8 @@
                 })
                 .catch(err => {
                     console.error("Error fetching weather:", err);
+                    // Ensure loading is hidden even if API call fails
+                    loading.style.display = 'none';
                 });
             
             // Then try to get user's location in the background if needed
@@ -646,6 +1469,28 @@
                     { timeout: 5000 } // Set a timeout for geolocation
                 );
             }
+            
+            // Set up language switcher event listeners
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const lang = this.getAttribute('data-lang');
+                    console.log('Language option clicked:', lang);
+                    
+                    // Try to use AgriApp first
+                    if (window.AgriApp && typeof window.AgriApp.switchLanguage === 'function') {
+                        console.log('Using AgriApp.switchLanguage');
+                        window.AgriApp.switchLanguage(lang);
+                    } else {
+                        console.log('AgriApp not available, using direct language switch');
+                        // Try to get translations if not available in this scope
+                        if (!translations && window.translations) {
+                            translations = window.translations;
+                        }
+                        directLanguageSwitch(lang);
+                    }
+                });
+            });
         });
         
         searchBtn.addEventListener('click', () => {
@@ -966,49 +1811,783 @@
             
             // Temperature-based recommendations
             if (temp > 35) {
-                recommendations.push('High temperature alert! Ensure adequate irrigation for crops.');
-                recommendations.push('Consider providing shade for sensitive crops.');
+                recommendations.push({
+                    type: 'warning',
+                    icon: 'fa-thermometer-full',
+                    title: 'High temperature alert!',
+                    content: 'Ensure adequate irrigation for crops.',
+                    expanded: 'For tomato and leafy greens, increase watering frequency to twice daily.',
+                    key: 'highTempAlert'
+                });
+                recommendations.push({
+                    type: 'alert',
+                    icon: 'fa-umbrella-beach',
+                    title: 'Consider providing shade',
+                    content: 'Protect sensitive crops from direct sunlight.',
+                    expanded: 'Use shade cloth or natural methods like interplanting with taller crops.',
+                    key: 'provideShade'
+                });
+                // Add heat stress management recommendation
+                recommendations.push({
+                    type: 'warning',
+                    icon: 'fa-temperature-high',
+                    title: 'Heat stress management',
+                    content: 'Monitor plants for heat stress symptoms and manage water carefully.',
+                    expanded: 'Signs include wilting despite adequate soil moisture, leaf curling, and sunburn. Water deeply in early morning.',
+                    key: 'heatStressManagement'
+                });
             } else if (temp < 15) {
-                recommendations.push('Low temperature alert! Protect cold-sensitive crops with covers.');
+                recommendations.push({
+                    type: 'warning',
+                    icon: 'fa-thermometer-empty',
+                    title: 'Low temperature alert!',
+                    content: 'Protect cold-sensitive crops with covers.',
+                    expanded: 'Use row covers at night and remove during the day to allow sunlight.',
+                    key: 'lowTempAlert'
+                });
+                // Add frost protection recommendation
+                recommendations.push({
+                    type: 'warning',
+                    icon: 'fa-snowflake',
+                    title: 'Frost protection needed',
+                    content: 'Take measures to protect crops from potential frost damage.',
+                    expanded: 'Use row covers, plastic tunnels, or apply water in the evening to create a thermal barrier.',
+                    key: 'frostProtection'
+                });
             }
             
             // Humidity-based recommendations
             if (humidity > 80) {
-                recommendations.push('High humidity may increase disease risk. Monitor crops for fungal infections.');
+                recommendations.push({
+                    type: 'alert',
+                    icon: 'fa-cloud-rain',
+                    title: 'High humidity alert!',
+                    content: 'Monitor crops for fungal infections.',
+                    expanded: 'Check undersides of leaves for signs of mildew. Increase spacing between plants for better airflow.',
+                    key: 'highHumidityAlert'
+                });
+                // Add disease prevention recommendation
+                recommendations.push({
+                    type: 'warning',
+                    icon: 'fa-disease',
+                    title: 'Disease prevention',
+                    content: 'Apply protective fungicides before infection occurs.',
+                    expanded: 'Use copper-based fungicides or biological controls as a preventive measure in high humidity conditions.',
+                    key: 'diseaseControl'
+                });
             } else if (humidity < 30) {
-                recommendations.push('Low humidity alert! Ensure adequate watering to prevent dehydration.');
+                recommendations.push({
+                    type: 'alert',
+                    icon: 'fa-tint-slash',
+                    title: 'Low humidity alert!',
+                    content: 'Ensure adequate watering to prevent dehydration.',
+                    expanded: 'Mulch around plants to retain soil moisture and water in the early morning.',
+                    key: 'lowHumidityAlert'
+                });
+                // Add mulching recommendation
+                recommendations.push({
+                    type: 'info',
+                    icon: 'fa-seedling',
+                    title: 'Mulch application',
+                    content: 'Apply organic mulch to conserve soil moisture.',
+                    expanded: 'A 2-3 inch layer of straw, leaf litter, or compost will significantly reduce water evaporation.',
+                    key: 'mulchApplication'
+                });
             }
             
             // Weather condition recommendations
             if (weatherCondition.includes('rain') || weatherCondition.includes('drizzle')) {
-                recommendations.push('Rainfall expected. Avoid spraying pesticides or fertilizers.');
-                recommendations.push('Check drainage systems to prevent waterlogging.');
+                recommendations.push({
+                    type: 'info',
+                    icon: 'fa-cloud-showers-heavy',
+                    title: 'Rainfall management',
+                    content: 'Avoid spraying pesticides or fertilizers.',
+                    expanded: 'Wait at least 24-48 hours after rainfall to apply any sprays.',
+                    key: 'rainfallExpected'
+                });
+                recommendations.push({
+                    type: 'info',
+                    icon: 'fa-water',
+                    title: 'Check drainage systems',
+                    content: 'Prevent waterlogging in your fields.',
+                    expanded: 'Clear any blocked drainage channels and create furrows if needed.',
+                    key: 'checkDrainage'
+                });
+                // Add disease monitoring recommendation
+                recommendations.push({
+                    type: 'warning',
+                    icon: 'fa-microscope',
+                    title: 'Disease monitoring',
+                    content: 'Watch for early signs of fungal diseases after rain.',
+                    expanded: 'Focus on leaf spots, stem rot, and fruit blemishes. Early detection allows for targeted treatment.',
+                    key: 'diseaseMonitoring'
+                });
             } else if (weatherCondition.includes('clear')) {
-                recommendations.push('Clear weather is good for spraying operations if needed.');
+                recommendations.push({
+                    type: 'success',
+                    icon: 'fa-sun',
+                    title: 'Clear weather advantage',
+                    content: 'Good conditions for spraying operations if needed.',
+                    expanded: 'Best time is early morning when winds are calm.',
+                    key: 'clearWeather'
+                });
+                // Add harvesting recommendation
+                recommendations.push({
+                    type: 'success',
+                    icon: 'fa-truck-loading',
+                    title: 'Optimal harvest conditions',
+                    content: 'Ideal weather for harvesting ripe crops.',
+                    expanded: 'Harvest during cooler parts of the day. Crops will have less moisture and store better.',
+                    key: 'harvestConditions'
+                });
             } else if (weatherCondition.includes('cloud')) {
-                recommendations.push('Cloudy conditions are favorable for transplanting seedlings.');
+                recommendations.push({
+                    type: 'success',
+                    icon: 'fa-cloud',
+                    title: 'Ideal transplanting conditions',
+                    content: 'Cloudy conditions are favorable for transplanting seedlings.',
+                    expanded: 'Seedlings face less transplant shock in cloudy weather due to reduced water loss.',
+                    key: 'cloudyConditions'
+                });
+                // Add fieldwork recommendation
+                recommendations.push({
+                    type: 'success',
+                    icon: 'fa-tractor',
+                    title: 'Ideal fieldwork day',
+                    content: 'Good conditions for field preparation and maintenance.',
+                    expanded: 'Moderate temperatures under cloudy skies are perfect for labor-intensive fieldwork.',
+                    key: 'fieldworkConditions'
+                });
             } else if (weatherCondition.includes('storm') || weatherCondition.includes('thunder')) {
-                recommendations.push('Storm alert! Secure loose items and provide support for tall crops.');
+                recommendations.push({
+                    type: 'warning',
+                    icon: 'fa-bolt',
+                    title: 'Storm alert!',
+                    content: 'Secure loose items and provide support for tall crops.',
+                    expanded: 'Use additional stakes or supports for plants like tomatoes and trellised crops.',
+                    key: 'stormAlert'
+                });
+                // Add lightning safety recommendation
+                recommendations.push({
+                    type: 'warning',
+                    icon: 'fa-exclamation-triangle',
+                    title: 'Lightning safety',
+                    content: 'Avoid fieldwork during thunderstorms.',
+                    expanded: 'Seek shelter in a building or vehicle. Avoid open fields, tall trees, and metal equipment.',
+                    key: 'lightningSafety'
+                });
+                // Add flood preparation recommendation
+                recommendations.push({
+                    type: 'warning',
+                    icon: 'fa-water',
+                    title: 'Flood preparation',
+                    content: 'Create temporary channels to divert excess water.',
+                    expanded: 'Dig small trenches around crop areas to channel water away from sensitive root zones.',
+                    key: 'floodPreparation'
+                });
+            } else if (weatherCondition.includes('haze') || weatherCondition.includes('fog')) {
+                // Add visibility recommendation
+                recommendations.push({
+                    type: 'info',
+                    icon: 'fa-smog',
+                    title: 'Reduced visibility',
+                    content: 'Be cautious when operating machinery due to poor visibility.',
+                    expanded: 'Use headlights on farm equipment and reduce speed during foggy conditions.',
+                    key: 'poorVisibility'
+                });
+            } else if (weatherCondition.includes('dust') || weatherCondition.includes('sand')) {
+                // Add dust protection recommendation
+                recommendations.push({
+                    type: 'warning',
+                    icon: 'fa-mask',
+                    title: 'Dust protection',
+                    content: 'Protect respiratory system and sensitive equipment from dust.',
+                    expanded: 'Wear masks when working in dusty conditions and cover sensitive equipment.',
+                    key: 'dustProtection'
+                });
             }
             
             // Wind-based recommendations
             if (windSpeed > 5) { // > 18 km/h
-                recommendations.push('Strong winds may affect spraying operations. Consider postponing if possible.');
+                recommendations.push({
+                    type: 'alert',
+                    icon: 'fa-wind',
+                    title: 'Strong winds',
+                    content: 'Strong winds may affect spraying operations. Consider postponing if possible.',
+                    expanded: 'If spraying is necessary, use drift-reduction nozzles and spray close to the target.',
+                    key: 'strongWinds'
+                });
+                // Add crop protection recommendation
+                recommendations.push({
+                    type: 'warning',
+                    icon: 'fa-shield-alt',
+                    title: 'Wind damage prevention',
+                    content: 'Secure trellises and protect young plants from wind damage.',
+                    expanded: 'Use windbreaks like temporary fencing or plant taller crops as natural barriers.',
+                    key: 'windDamagePrevention'
+                });
             }
             
-            // Display recommendations
-            recommendationList.innerHTML = '';
-            if (recommendations.length > 0) {
-                recommendations.forEach(recommendation => {
-                    const li = document.createElement('li');
-                    li.textContent = recommendation;
-                    recommendationList.appendChild(li);
+            // Add a default recommendation if no specific ones are available
+            if (recommendations.length === 0) {
+                recommendations.push({
+                    type: 'success',
+                    icon: 'fa-check-circle',
+                    title: 'Favorable conditions',
+                    content: 'Weather conditions are favorable for regular farming activities.',
+                    expanded: 'Good time for routine maintenance tasks like weeding and monitoring crop health.',
+                    key: 'favorableConditions'
                 });
-            } else {
-                const li = document.createElement('li');
-                li.textContent = 'Weather conditions are favorable for regular farming activities.';
-                recommendationList.appendChild(li);
             }
+            
+            // Limit to max 8 recommendations (increased from 5)
+            const limitedRecommendations = recommendations.slice(0, 8);
+            
+            // Generate the recommendation cards
+            createRecommendationCards(limitedRecommendations);
+            
+            // Also populate the old recommendation list for backward compatibility
+            populateOldRecommendationList(limitedRecommendations);
+            
+            // Generate weekly forecast and crisis management
+            generateWeeklyForecast(data);
+        }
+        
+        // Generate weekly forecast and crisis management
+        function generateWeeklyForecast(currentData) {
+            const forecastContainer = document.getElementById('forecast-container');
+            const crisisContent = document.getElementById('crisis-content');
+            const measuresContainer = document.getElementById('measures-container');
+            const crisisBadge = document.getElementById('crisis-badge');
+            
+            if (!forecastContainer || !crisisContent || !measuresContainer) return;
+            
+            // Clear containers
+            forecastContainer.innerHTML = '';
+            crisisContent.innerHTML = '';
+            measuresContainer.innerHTML = '';
+            
+            // Hide crisis badge by default
+            if (crisisBadge) crisisBadge.style.display = 'none';
+            
+            // Generate 7-day weather forecast (simulated data based on current weather)
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const weatherTypes = ['clear', 'clouds', 'rain', 'thunderstorm', 'drizzle', 'snow', 'mist'];
+            const iconMap = {
+                'clear': 'fa-sun',
+                'clouds': 'fa-cloud',
+                'rain': 'fa-cloud-rain',
+                'thunderstorm': 'fa-bolt',
+                'drizzle': 'fa-cloud-showers-heavy',
+                'snow': 'fa-snowflake',
+                'mist': 'fa-smog'
+            };
+            
+            // Current conditions
+            const currentTemp = currentData.main.temp;
+            const currentWeather = currentData.weather[0].main.toLowerCase();
+            
+            // Tamil Nadu weather patterns (simulate increasing chance of rain in the forecast)
+            let currentHumidity = currentData.main.humidity;
+            let rainChance = currentWeather.includes('rain') ? 70 : 20;
+            let stormRisk = currentWeather.includes('storm') ? 60 : 10;
+            
+            // Detect potential crisis conditions
+            const isHighTemperature = currentTemp > 35;
+            const isLowTemperature = currentTemp < 10;
+            const isHighRainfall = currentWeather.includes('rain') && currentHumidity > 80;
+            const isStormRisk = currentWeather.includes('storm') || stormRisk > 50;
+            const isDroughtRisk = currentTemp > 30 && currentHumidity < 30;
+            
+            // Show crisis badge if any crisis condition is detected
+            if (isHighTemperature || isLowTemperature || isHighRainfall || isStormRisk || isDroughtRisk) {
+                if (crisisBadge) crisisBadge.style.display = 'flex';
+            }
+            
+            // Generate forecast cards
+            for (let i = 0; i < 7; i++) {
+                const forecastDate = new Date();
+                forecastDate.setDate(forecastDate.getDate() + i);
+                
+                // Simulate weather progression
+                let dayTemp = currentTemp + (Math.random() * 6 - 3); // Vary by +/- 3 degrees
+                
+                // Increase rain chance as days progress (simulating monsoon pattern in Tamil Nadu)
+                rainChance += 5;
+                rainChance = Math.min(rainChance, 80);
+                
+                // Determine weather type based on probabilities
+                let weatherType = 'clear';
+                if (Math.random() * 100 < rainChance) {
+                    weatherType = Math.random() * 100 < stormRisk ? 'thunderstorm' : 'rain';
+                } else if (Math.random() * 100 < 30) {
+                    weatherType = 'clouds';
+                }
+                
+                // Create forecast card
+                const card = document.createElement('div');
+                card.className = 'forecast-card';
+                
+                const dayIndex = (forecastDate.getDay()) % 7;
+                const formattedDate = `${forecastDate.getDate()}/${forecastDate.getMonth() + 1}`;
+                
+                card.innerHTML = `
+                    <div class="forecast-day">${days[dayIndex]}</div>
+                    <div class="forecast-date">${formattedDate}</div>
+                    <div class="forecast-icon">
+                        <i class="fas ${iconMap[weatherType]} fa-2x" style="color: ${getWeatherIconColor(weatherType)}"></i>
+                    </div>
+                    <div class="forecast-temp">${Math.round(dayTemp)}°C</div>
+                    <div class="forecast-description">${capitalizeFirstLetter(weatherType)}</div>
+                `;
+                
+                forecastContainer.appendChild(card);
+            }
+            
+            // Generate crisis management content based on detected conditions
+            if (isHighTemperature) {
+                addCrisisCard('Heat Wave Crisis', 'fa-fire', 'Prolonged high temperatures can severely impact crop yields and farm worker health.', [
+                    'Stay hydrated and work during cooler hours',
+                    'Implement shade strategies for sensitive crops',
+                    'Increase irrigation frequency but use water efficiently',
+                    'Consider crop-specific heat tolerance thresholds'
+                ]);
+            }
+            
+            if (isLowTemperature) {
+                addCrisisCard('Cold Snap Crisis', 'fa-snowflake', 'Unexpected cold temperatures can damage crops and affect livestock.', [
+                    'Protect sensitive crops with covers overnight',
+                    'Ensure livestock have warm, dry shelter',
+                    'Irrigate before freeze to create thermal protection',
+                    'Monitor crop varieties with low cold tolerance'
+                ]);
+            }
+            
+            if (isHighRainfall) {
+                addCrisisCard('Flooding Risk', 'fa-water', 'Heavy rainfall can lead to waterlogging, flooding, and soil erosion.', [
+                    'Clear drainage channels immediately',
+                    'Move equipment to higher ground',
+                    'Consider emergency harvesting of mature crops',
+                    'Document any damage for insurance purposes'
+                ]);
+            }
+            
+            if (isStormRisk) {
+                addCrisisCard('Storm Damage Prevention', 'fa-bolt', 'Thunderstorms can bring high winds, heavy rain, and lightning.', [
+                    'Secure farm structures and equipment',
+                    'Stay indoors during lightning',
+                    'Prepare for power outages with backup systems',
+                    'Check fields after storms for damage assessment'
+                ]);
+            }
+            
+            if (isDroughtRisk) {
+                addCrisisCard('Drought Conditions', 'fa-drought', 'Extended dry periods require careful water management.', [
+                    'Implement water conservation practices',
+                    'Prioritize irrigation for high-value crops',
+                    'Consider alternative water sources',
+                    'Apply mulch to reduce soil moisture evaporation'
+                ]);
+            }
+            
+            // If no crisis detected, add general preparedness information
+            if (crisisContent.innerHTML === '') {
+                crisisContent.innerHTML = `
+                    <div class="crisis-card">
+                        <div class="crisis-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="crisis-details">
+                            <h4>Weather patterns normal</h4>
+                            <p>No immediate weather crisis detected. Continue regular farming activities while staying informed about changing conditions.</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Generate preventive measures based on season and current conditions
+            // Water management
+            addPreventiveMeasure('fa-tint', 'Water Management', 'Efficient water use is critical for sustainable farming.', [
+                'Install drip irrigation systems for targeted watering',
+                'Collect and store rainwater for future use',
+                'Schedule irrigation based on crop needs and weather forecasts',
+                'Monitor soil moisture levels regularly'
+            ]);
+            
+            // Crop protection
+            addPreventiveMeasure('fa-shield-alt', 'Crop Protection', 'Protect your crops from various climate challenges.', [
+                'Use proper spacing to prevent disease spread',
+                'Plant wind-breaks to reduce crop damage from strong winds',
+                'Consider row covers for temperature-sensitive crops',
+                'Implement crop rotation to break pest and disease cycles'
+            ]);
+            
+            // Soil health
+            addPreventiveMeasure('fa-seedling', 'Soil Health Management', 'Healthy soil improves resilience to weather extremes.', [
+                'Apply appropriate mulch to regulate soil temperature and moisture',
+                'Add organic matter to improve water retention',
+                'Minimize tillage to protect soil structure',
+                'Use cover crops to prevent erosion and add nutrients'
+            ]);
+            
+            // Technology adaptation
+            addPreventiveMeasure('fa-mobile-alt', 'Weather Technology', 'Use technology to stay ahead of weather changes.', [
+                'Install a local rain gauge and thermometer',
+                'Use weather prediction apps for farm planning',
+                'Consider soil moisture sensors for precise irrigation',
+                'Join local farmer networks to share weather information'
+            ]);
+            
+            function addCrisisCard(title, icon, description, bulletPoints) {
+                const card = document.createElement('div');
+                card.className = 'crisis-card';
+                
+                let bulletHTML = '';
+                if (bulletPoints && bulletPoints.length) {
+                    bulletHTML = '<ul>';
+                    bulletPoints.forEach(point => {
+                        bulletHTML += `<li>${point}</li>`;
+                    });
+                    bulletHTML += '</ul>';
+                }
+                
+                card.innerHTML = `
+                    <div class="crisis-icon">
+                        <i class="fas ${icon}"></i>
+                    </div>
+                    <div class="crisis-details">
+                        <h4>${title}</h4>
+                        <p>${description}</p>
+                        ${bulletHTML}
+                    </div>
+                `;
+                
+                crisisContent.appendChild(card);
+            }
+            
+            function addPreventiveMeasure(icon, title, description, bulletPoints) {
+                const measure = document.createElement('div');
+                measure.className = 'measure-card';
+                
+                let bulletHTML = '';
+                if (bulletPoints && bulletPoints.length) {
+                    bulletHTML = '<ul>';
+                    bulletPoints.forEach(point => {
+                        bulletHTML += `<li>${point}</li>`;
+                    });
+                    bulletHTML += '</ul>';
+                }
+                
+                measure.innerHTML = `
+                    <div class="measure-header">
+                        <div class="measure-icon">
+                            <i class="fas ${icon}"></i>
+                        </div>
+                        <h4 class="measure-title">${title}</h4>
+                    </div>
+                    <div class="measure-content">
+                        <p>${description}</p>
+                        ${bulletHTML}
+                    </div>
+                `;
+                
+                measuresContainer.appendChild(measure);
+            }
+        }
+        
+        function getWeatherIconColor(weatherType) {
+            const colors = {
+                'clear': '#FF9800',
+                'clouds': '#78909C',
+                'rain': '#2196F3',
+                'thunderstorm': '#673AB7',
+                'drizzle': '#4FC3F7',
+                'snow': '#ECEFF1',
+                'mist': '#B0BEC5'
+            };
+            return colors[weatherType] || '#333333';
+        }
+        
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+        
+        // Populate old recommendation list for backward compatibility
+        function populateOldRecommendationList(recommendations) {
+            const list = document.getElementById('recommendation-list');
+            if (!list) return;
+            
+            list.innerHTML = '';
+            
+            recommendations.forEach(rec => {
+                const li = document.createElement('li');
+                li.textContent = `${rec.title} ${rec.content}`;
+                list.appendChild(li);
+            });
+        }
+        
+        // Create recommendation cards with the modern UI
+        function createRecommendationCards(recommendations) {
+            const container = document.getElementById('recommendation-cards');
+            const noRecommendationsEl = document.getElementById('no-recommendations');
+            
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            if (recommendations.length === 0) {
+                if (noRecommendationsEl) {
+                    noRecommendationsEl.style.display = 'block';
+                }
+                return;
+            }
+            
+            if (noRecommendationsEl) {
+                noRecommendationsEl.style.display = 'none';
+            }
+            
+            recommendations.forEach((rec, index) => {
+                const card = document.createElement('div');
+                card.className = `recommendation-card card-${rec.type}`;
+                card.dataset.key = rec.key;
+                card.dataset.type = rec.type;
+                
+                // Create card contents with English text initially
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="card-title-container">
+                            <div class="card-icon">
+                                <i class="fas ${rec.icon}"></i>
+                            </div>
+                            <div>
+                                <div class="card-title" data-rec-title="${rec.key}">${rec.title}</div>
+                                ${rec.type === 'warning' ? '<span class="importance-badge">Important</span>' : ''}
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="audio-btn" title="Listen" data-key="${rec.key}" aria-label="Listen to recommendation">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <button class="share-btn" title="Share" data-key="${rec.key}" aria-label="Share recommendation">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-content" data-rec-content="${rec.key}">${rec.content}</div>
+                    <div class="card-footer">
+                        <button class="read-more-btn" data-expand="${index}">
+                            <i class="fas fa-chevron-down"></i> Read More
+                        </button>
+                        <span class="audio-badge"><i class="fas fa-headphones"></i> Available</span>
+                    </div>
+                    <div class="card-expanded" id="expanded-${index}">
+                        <h4><i class="fas fa-seedling"></i> Crop-Specific Tips:</h4>
+                        <div data-rec-expanded="${rec.key}">${rec.expanded}</div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+            
+            // Add event listeners for read more buttons
+            document.querySelectorAll('.read-more-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent card expansion handling
+                    
+                    const expandId = this.dataset.expand;
+                    const expanded = document.getElementById(`expanded-${expandId}`);
+                    
+                    if (expanded) {
+                        const isShown = expanded.classList.toggle('show');
+                        this.innerHTML = isShown ? 
+                            '<i class="fas fa-chevron-up"></i> Show Less' : 
+                            '<i class="fas fa-chevron-down"></i> Read More';
+                    }
+                });
+            });
+            
+            // Add event listeners for audio buttons
+            document.querySelectorAll('.audio-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent card expansion
+                    playAudio(this.dataset.key);
+                });
+            });
+            
+            // Add event listeners for share buttons
+            document.querySelectorAll('.share-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent card expansion
+                    shareRecommendation(this.dataset.key);
+                });
+            });
+            
+            // Add event listeners for language toggle
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (this.classList.contains('active')) return;
+                    
+                    // Update active state
+                    document.querySelector('.toggle-btn.active').classList.remove('active');
+                    this.classList.add('active');
+                    
+                    // Switch language
+                    switchRecommendationLanguage(this.dataset.recLang);
+                });
+            });
+            
+            // Add event listeners for filters
+            document.querySelectorAll('.rec-filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (this.classList.contains('active')) return;
+                    
+                    // Update active state
+                    document.querySelector('.rec-filter-btn.active').classList.remove('active');
+                    this.classList.add('active');
+                    
+                    // Filter recommendations
+                    filterRecommendations(this.dataset.filter);
+                });
+            });
+        }
+        
+        // Filter recommendations by type
+        function filterRecommendations(filterType) {
+            const cards = document.querySelectorAll('.recommendation-card');
+            
+            cards.forEach(card => {
+                if (filterType === 'all') {
+                    card.style.display = 'flex';
+                } else if (filterType === 'warning') {
+                    // Show both warning and alert types for alerts filter
+                    card.style.display = (card.dataset.type === 'warning' || card.dataset.type === 'alert') ? 'flex' : 'none';
+                } else {
+                    card.style.display = card.dataset.type === filterType ? 'flex' : 'none';
+                }
+            });
+            
+            // Check if any cards are visible
+            let visibleCards = 0;
+            cards.forEach(card => {
+                if (card.style.display !== 'none') {
+                    visibleCards++;
+                }
+            });
+            
+            // Show no recommendations message if no cards are visible
+            const noRecommendationsEl = document.getElementById('no-recommendations');
+            if (noRecommendationsEl) {
+                noRecommendationsEl.style.display = visibleCards === 0 ? 'block' : 'none';
+            }
+        }
+        
+        // Share recommendation function
+        function shareRecommendation(key) {
+            console.log(`Sharing recommendation: ${key}`);
+            
+            // Get the recommendation title and content
+            const titleEl = document.querySelector(`[data-rec-title="${key}"]`);
+            const contentEl = document.querySelector(`[data-rec-content="${key}"]`);
+            
+            if (!titleEl || !contentEl) return;
+            
+            const title = titleEl.textContent;
+            const content = contentEl.textContent;
+            const shareText = `${title} - ${content} #UzhavarOli #FarmingTips`;
+            
+            // Show sharing options or use native share API if available
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Farming Recommendation from Uzhavar Oli',
+                    text: shareText,
+                    url: window.location.href
+                })
+                .then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing', error));
+            } else {
+                // Fallback for browsers that don't support the Web Share API
+                // Create a temporary input to copy the text
+                const tempInput = document.createElement('input');
+                tempInput.value = shareText;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                
+                // Show a toast notification
+                const toastMsg = document.createElement('div');
+                toastMsg.className = 'weather-toast';
+                toastMsg.innerHTML = `<i class="fas fa-check-circle"></i> Copied to clipboard`;
+                document.body.appendChild(toastMsg);
+                
+                setTimeout(() => {
+                    toastMsg.classList.add('show');
+                }, 300);
+                
+                setTimeout(() => {
+                    toastMsg.classList.remove('show');
+                    setTimeout(() => {
+                        document.body.removeChild(toastMsg);
+                    }, 500);
+                }, 3000);
+            }
+        }
+        
+        // Switch language of recommendation cards
+        function switchRecommendationLanguage(lang) {
+            if (!translations || !translations[lang]) return;
+            
+            document.querySelectorAll('[data-rec-title]').forEach(el => {
+                const key = el.dataset.recTitle;
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key].split('!')[0] + (translations[lang][key].includes('!') ? '!' : '');
+                }
+            });
+            
+            document.querySelectorAll('[data-rec-content]').forEach(el => {
+                const key = el.dataset.recContent;
+                if (translations[lang][key]) {
+                    // For content, use everything after the first sentence if it exists
+                    const content = translations[lang][key];
+                    const firstSentenceEnd = content.indexOf('.');
+                    
+                    if (firstSentenceEnd !== -1 && firstSentenceEnd < content.length - 1) {
+                        el.textContent = content.substring(firstSentenceEnd + 1).trim();
+                    } else {
+                        el.textContent = content;
+                    }
+                }
+            });
+            
+            // Keep expanded content in English for now as we don't have translations for those
+            // In a real app, you would translate these too
+        }
+        
+        // Play audio for a recommendation (simulated for now)
+        function playAudio(key) {
+            console.log(`Playing audio for: ${key}`);
+            // In a real implementation, you would:
+            // 1. Either use pre-recorded audio files
+            // 2. Or use a text-to-speech API to generate audio on-the-fly
+            
+            // Show audio feedback
+            const btn = document.querySelector(`.audio-btn[data-key="${key}"]`);
+            if (btn) {
+                const originalIcon = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                
+                // Simulate audio playing
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        btn.innerHTML = originalIcon;
+                    }, 1000);
+                }, 1500);
+            }
+            
+            // Here you would typically:
+            // const audio = new Audio(`audio/${currentLanguage}/${key}.mp3`);
+            // audio.play();
         }
         
         // Show error message
@@ -1021,6 +2600,352 @@
                 weatherContent.style.display = 'none';
             }
         }
+        
+        // Direct language switcher for weather page
+        function directLanguageSwitch(lang) {
+            console.log('Direct language switch to:', lang);
+            
+            // Store the language preference
+            localStorage.setItem('agri-lang', lang);
+            
+            // Update content with translations
+            if (translations && translations[lang]) {
+                // Update elements with data-lang attributes
+                document.querySelectorAll('[data-lang]').forEach(item => {
+                    const translationKey = item.getAttribute('data-lang');
+                    if (translationKey && translations[lang][translationKey]) {
+                        item.textContent = translations[lang][translationKey];
+                    }
+                });
+                
+                // Update input placeholder
+                const locationInput = document.getElementById('location-input');
+                if (locationInput && translations[lang]['locationPlaceholder']) {
+                    locationInput.placeholder = translations[lang]['locationPlaceholder'];
+                }
+                
+                // Update page title and heading
+                document.title = `${lang === 'en' ? 'Weather Details' : 'வானிலை விவரங்கள்'} - Uzhavar Oli`;
+                
+                // Update button title attributes
+                document.querySelectorAll('[data-title]').forEach(item => {
+                    const titleKey = item.getAttribute('data-title');
+                    if (titleKey && translations[lang][titleKey]) {
+                        item.setAttribute('title', translations[lang][titleKey]);
+                    }
+                });
+                
+                // Update recommendations if they exist
+                updateRecommendationsForLanguage(lang);
+            } else {
+                console.error('Translations not available, using hardcoded fallbacks');
+                // Fallback for crucial elements
+                if (lang === 'ta') {
+                    // Tamil fallbacks
+                    document.querySelector('[data-lang="weatherDetails"]').textContent = 'வானிலை விவரங்கள்';
+                    document.querySelector('[data-lang="weatherDetailsDesc"]').textContent = 'உங்கள் இடத்திற்கான துல்லியமான வானிலை முன்னறிவிப்புகளை பெறுங்கள்';
+                    document.querySelector('[data-lang="search"]').textContent = 'தேடல்';
+                    document.querySelector('[data-lang="loadingWeather"]').textContent = 'வானிலை தரவு ஏற்றப்படுகிறது...';
+                    document.querySelector('[data-lang="farmingRecommendations"]').textContent = 'விவசாய பரிந்துரைகள்';
+                } else {
+                    // English fallbacks
+                    document.querySelector('[data-lang="weatherDetails"]').textContent = 'Weather Details';
+                    document.querySelector('[data-lang="weatherDetailsDesc"]').textContent = 'Get accurate weather forecasts for your location';
+                    document.querySelector('[data-lang="search"]').textContent = 'Search';
+                    document.querySelector('[data-lang="loadingWeather"]').textContent = 'Loading weather data...';
+                    document.querySelector('[data-lang="farmingRecommendations"]').textContent = 'Farming Recommendations';
+                }
+            }
+            
+            // Show a toast notification
+            const message = lang === 'en' ? 'Language changed to English' : 'மொழி தமிழாக மாற்றப்பட்டது';
+            const toastMsg = document.createElement('div');
+            toastMsg.className = 'weather-toast';
+            toastMsg.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+            document.body.appendChild(toastMsg);
+            
+            setTimeout(() => {
+                toastMsg.classList.add('show');
+            }, 300);
+            
+            setTimeout(() => {
+                toastMsg.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(toastMsg);
+                }, 500);
+            }, 3000);
+        }
+        
+        // Helper function to update weather recommendations based on language
+        function updateRecommendationsForLanguage(lang) {
+            const recommendationList = document.getElementById('recommendation-list');
+            
+            if (!recommendationList) return;
+            
+            const items = recommendationList.querySelectorAll('li');
+            if (!items || items.length === 0) return;
+            
+            // Create a mapping of English to translation keys
+            const translationMapping = {
+                'High temperature alert! Ensure adequate irrigation for crops.': 'highTempAlert',
+                'Consider providing shade Protect sensitive crops from direct sunlight.': 'provideShade',
+                'Heat stress management Monitor plants for heat stress symptoms and manage water carefully.': 'heatStressManagement',
+                'Low temperature alert! Protect cold-sensitive crops with covers.': 'lowTempAlert',
+                'Frost protection needed Take measures to protect crops from potential frost damage.': 'frostProtection',
+                'High humidity alert! Monitor crops for fungal infections.': 'highHumidityAlert',
+                'Disease prevention Apply protective fungicides before infection occurs.': 'diseaseControl',
+                'Low humidity alert! Ensure adequate watering to prevent dehydration.': 'lowHumidityAlert',
+                'Mulch application Apply organic mulch to conserve soil moisture.': 'mulchApplication',
+                'Rainfall management Avoid spraying pesticides or fertilizers.': 'rainfallExpected',
+                'Check drainage systems Prevent waterlogging in your fields.': 'checkDrainage',
+                'Disease monitoring Watch for early signs of fungal diseases after rain.': 'diseaseMonitoring',
+                'Clear weather advantage Good conditions for spraying operations if needed.': 'clearWeather',
+                'Optimal harvest conditions Ideal weather for harvesting ripe crops.': 'harvestConditions',
+                'Ideal transplanting conditions Cloudy conditions are favorable for transplanting seedlings.': 'cloudyConditions',
+                'Ideal fieldwork day Good conditions for field preparation and maintenance.': 'fieldworkConditions',
+                'Storm alert! Secure loose items and provide support for tall crops.': 'stormAlert',
+                'Lightning safety Avoid fieldwork during thunderstorms.': 'lightningSafety',
+                'Flood preparation Create temporary channels to divert excess water.': 'floodPreparation',
+                'Reduced visibility Be cautious when operating machinery due to poor visibility.': 'poorVisibility',
+                'Dust protection Protect respiratory system and sensitive equipment from dust.': 'dustProtection',
+                'Strong winds Strong winds may affect spraying operations. Consider postponing if possible.': 'strongWinds',
+                'Wind damage prevention Secure trellises and protect young plants from wind damage.': 'windDamagePrevention',
+                'Favorable conditions Weather conditions are favorable for regular farming activities.': 'favorableConditions'
+            };
+            
+            // Replace text content with translations
+            items.forEach(item => {
+                const englishText = item.textContent.trim();
+                const translationKey = translationMapping[englishText];
+                
+                if (translationKey && translations[lang][translationKey]) {
+                    item.textContent = translations[lang][translationKey];
+                }
+            });
+            
+            // Update modern recommendation cards if they exist
+            const cardTitles = document.querySelectorAll('[data-rec-title]');
+            const cardContents = document.querySelectorAll('[data-rec-content]');
+            const cardExpanded = document.querySelectorAll('[data-rec-expanded]');
+            
+            // For future implementation - update data attributes
+
+            // Also update the forecast section if present
+            if (typeof updateForecastLanguage === 'function') {
+                updateForecastLanguage(lang);
+            }
+        }
+        
+        // Direct language switch function
+        function directLanguageSwitch(lang) {
+            // If translations not available in this scope, check if available in window
+            if (!translations && window.translations) {
+                translations = window.translations;
+            }
+            
+            // Only proceed if translations are available
+            if (!translations) {
+                console.error('Translations not available');
+                return;
+            }
+            
+            // Common elements that might have text to translate
+            const elementsWithLangAttr = document.querySelectorAll('[data-lang]');
+            
+            // Update all elements with data-lang attribute
+            elementsWithLangAttr.forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (key && translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            
+            // Update placeholders
+            const inputsWithPlaceholder = document.querySelectorAll('[data-placeholder]');
+            inputsWithPlaceholder.forEach(input => {
+                const key = input.getAttribute('data-placeholder');
+                if (key && translations[lang] && translations[lang][key]) {
+                    input.placeholder = translations[lang][key];
+                }
+            });
+            
+            // Update button titles
+            const buttonsWithTitle = document.querySelectorAll('[data-title]');
+            buttonsWithTitle.forEach(btn => {
+                const key = btn.getAttribute('data-title');
+                if (key && translations[lang] && translations[lang][key]) {
+                    btn.title = translations[lang][key];
+                }
+            });
+            
+            // Update recommendations if they exist
+            updateRecommendationsForLanguage(lang);
+            
+            // Update forecast section if it exists
+            updateForecastLanguage(lang);
+        }
+        
+        // Function to switch recommendation language
+        function switchRecommendationLanguage(lang) {
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.recLang === lang) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update weather recommendations based on language
+            updateRecommendationsForLanguage(lang);
+        }
+        
+        // Add translations for weekly forecast and crisis management
+        const forecastTranslations = {
+            en: {
+                weeklyForecast: "Weekly Forecast",
+                crisisAlert: "Weather Crisis Alert",
+                crisisManagement: "Crisis Management & Prevention",
+                preventiveMeasures: "Preventive Measures",
+                weatherPatternsNormal: "Weather patterns normal",
+                noImmediateCrisis: "No immediate weather crisis detected. Continue regular farming activities while staying informed about changing conditions.",
+                waterManagement: "Water Management",
+                cropProtection: "Crop Protection",
+                soilHealth: "Soil Health Management",
+                weatherTechnology: "Weather Technology",
+                heatWaveCrisis: "Heat Wave Crisis",
+                coldSnapCrisis: "Cold Snap Crisis",
+                floodingRisk: "Flooding Risk",
+                stormDamagePrevention: "Storm Damage Prevention",
+                droughtConditions: "Drought Conditions"
+            },
+            ta: {
+                weeklyForecast: "வார வானிலை முன்னறிவிப்பு",
+                crisisAlert: "வானிலை நெருக்கடி எச்சரிக்கை",
+                crisisManagement: "நெருக்கடி மேலாண்மை & தடுப்பு",
+                preventiveMeasures: "தடுப்பு நடவடிக்கைகள்",
+                weatherPatternsNormal: "வானிலை சாதாரணமாக உள்ளது",
+                noImmediateCrisis: "உடனடி வானிலை நெருக்கடி எதுவும் இல்லை. வானிலை மாற்றங்களைப் பற்றி தெரிந்து கொண்டே வழக்கமான விவசாய நடவடிக்கைகளைத் தொடரவும்.",
+                waterManagement: "நீர் மேலாண்மை",
+                cropProtection: "பயிர் பாதுகாப்பு",
+                soilHealth: "மண் ஆரோக்கிய மேலாண்மை",
+                weatherTechnology: "வானிலை தொழில்நுட்பம்",
+                heatWaveCrisis: "வெப்ப அலை நெருக்கடி",
+                coldSnapCrisis: "குளிர் நெருக்கடி",
+                floodingRisk: "வெள்ள அபாயம்",
+                stormDamagePrevention: "புயல் சேத தடுப்பு",
+                droughtConditions: "வறட்சி நிலைமைகள்"
+            }
+        };
+        
+        // Expand the generateWeeklyForecast function to include translations for the forecast cards, crisis cards, and preventive measures
+        function updateForecastLanguage(lang) {
+            // Update section titles
+            document.querySelector('[data-lang="weeklyForecast"]').textContent = 
+                forecastTranslations[lang].weeklyForecast;
+            
+            document.querySelector('[data-lang="crisisAlert"]').textContent = 
+                forecastTranslations[lang].crisisAlert;
+            
+            document.querySelector('[data-lang="crisisManagement"]').textContent = 
+                forecastTranslations[lang].crisisManagement;
+            
+            document.querySelector('[data-lang="preventiveMeasures"]').textContent = 
+                forecastTranslations[lang].preventiveMeasures;
+            
+            // Update any generated forecast cards with the translated days of week
+            const days = {
+                en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                ta: ['ஞாயிறு', 'திங்கள்', 'செவ்வாய்', 'புதன்', 'வியாழன்', 'வெள்ளி', 'சனி']
+            };
+            
+            const weatherDescriptions = {
+                en: {
+                    'clear': 'Clear',
+                    'clouds': 'Cloudy',
+                    'rain': 'Rain',
+                    'thunderstorm': 'Thunderstorm',
+                    'drizzle': 'Drizzle',
+                    'snow': 'Snow',
+                    'mist': 'Mist'
+                },
+                ta: {
+                    'clear': 'தெளிவான',
+                    'clouds': 'மேகமூட்டம்',
+                    'rain': 'மழை',
+                    'thunderstorm': 'இடியுடன் கூடிய மழை',
+                    'drizzle': 'தூறல்',
+                    'snow': 'பனி',
+                    'mist': 'மூடுபனி'
+                }
+            };
+            
+            // Update forecast cards
+            document.querySelectorAll('.forecast-card').forEach(card => {
+                const dayElement = card.querySelector('.forecast-day');
+                const descriptionElement = card.querySelector('.forecast-description');
+                
+                if (dayElement) {
+                    // Get the English day name
+                    const englishDay = dayElement.textContent;
+                    // Find its index in the English array
+                    const dayIndex = days.en.findIndex(day => day === englishDay);
+                    if (dayIndex !== -1) {
+                        // Replace with the Tamil day name
+                        dayElement.textContent = days[lang][dayIndex];
+                    }
+                }
+                
+                if (descriptionElement) {
+                    // Get the English weather description
+                    const englishDesc = descriptionElement.textContent.toLowerCase();
+                    
+                    // Find the matching translation
+                    for (const [key, value] of Object.entries(weatherDescriptions.en)) {
+                        if (value.toLowerCase() === englishDesc) {
+                            descriptionElement.textContent = weatherDescriptions[lang][key];
+                            break;
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Add language handling for crisis cards and preventive measures in the directLanguageSwitch function
+    </script>
+    
+    <!-- Main App JavaScript for Language Switching -->
+    <script src="script.js"></script>
+    
+    <!-- Initialize translations from script.js -->
+    <script>
+        // Immediately get translations from script.js
+        if (window.translations) {
+            translations = window.translations;
+            console.log('Translations loaded from script.js');
+            
+            // Apply current language immediately
+            const currentLang = localStorage.getItem('agri-lang') || 'en';
+            if (translations[currentLang]) {
+                console.log('Applying current language:', currentLang);
+                directLanguageSwitch(currentLang);
+            }
+        } else {
+            console.error('Could not load translations from script.js');
+        }
+        
+        window.addEventListener('load', () => {
+            // Check translations again after window load
+            if (!translations && window.translations) {
+                translations = window.translations;
+                console.log('Translations loaded after window load');
+                
+                // Apply current language
+                const currentLang = localStorage.getItem('agri-lang') || 'en';
+                if (translations[currentLang]) {
+                    console.log('Applying current language after load:', currentLang);
+                    directLanguageSwitch(currentLang);
+                }
+            }
+        });
     </script>
     
     <!-- Service Worker Registration -->

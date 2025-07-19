@@ -3,186 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Uzhavar Oli - Login to access smart agriculture tools for Tamil Nadu farmers">
-    <title>Login - Uzhavar Oli</title>
-    
-    <!-- PWA Support -->
-    <meta name="theme-color" content="#2E7D32">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome Icons -->
+    <meta name="description" content="Login or sign up for AgriConnect - Your agricultural marketplace">
+    <title>Login | AgriConnect</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Tamil:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <!-- Navbar -->
+    <!-- Navigation Bar -->
     <nav class="navbar">
-        <a href="javascript:void(0)" onclick="window.location.href='index.html'" class="logo">
-            <img src="assets/logo.png" alt="Uzhavar Oli Logo">
-            <span>Uzhavar Oli</span>
-        </a>
-        <div class="navbar-links">
-            <a href="javascript:void(0)" onclick="window.location.href='index.html'"><i class="fas fa-home"></i> Return to Home</a>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="AgriConnect Logo">
+                <span>AgriConnect</span>
+            </a>
+            <div class="navbar-links">
+                <a href="index.html" data-lang="home">Home</a>
+                <a href="services.html" data-lang="services">Services</a>
+                <a href="about.html" data-lang="about">About</a>
+                <div class="language-dropdown">
+                    <button class="lang-btn" id="lang-btn">
+                        <i class="fas fa-globe"></i>
+                        <span data-lang="languages">Languages</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <button class="lang-option" data-lang="en">English</button>
+                        <button class="lang-option" data-lang="ta">தமிழ்</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- Cultural Icon -->
-    <div class="cultural-icon">
-        <div class="icon-container">
-            <img src="assets/cultural-icon.png" alt="Tamil Nadu Cultural Symbol">
-            <span class="icon-text">TN</span>
-        </div>
-    </div>
+    <img src="assets/agri-icon.png" alt="Cultural Icon" class="cultural-icon">
 
-    <!-- Login Container -->
+    <!-- Main Login Container -->
     <div class="login-container">
-        <div class="login-image"></div>
+        <!-- Forms -->
         <div class="login-content">
-            <div class="login-header">
-                <h2>Welcome to Uzhavar Oli</h2>
-                <p>Login or create an account to access personalized agricultural insights and services</p>
-            </div>
-            
+            <!-- Tab Navigation -->
             <div class="tabs">
-                <button class="tab-btn active" data-tab="login">Login</button>
-                <button class="tab-btn" data-tab="signup">Sign Up</button>
+                <button class="tab-btn active" data-tab="login" data-lang="login">Login</button>
+                <button class="tab-btn" data-tab="signup" data-lang="signup">Sign Up</button>
             </div>
-            
+
             <!-- Login Form -->
             <form id="login-form" class="active-form">
-                <div class="form-group">
-                    <label for="login-email">Email / Phone Number</label>
-                    <input type="text" id="login-email" placeholder="Enter your email or phone number" required>
+                <div class="login-options">
+                    <button type="button" class="login-option-btn active" data-login-type="email">
+                        <i class="fas fa-envelope"></i>
+                        <span data-lang="emailLogin">Email Login</span>
+                    </button>
+                    <button type="button" class="login-option-btn" data-login-type="phone">
+                        <i class="fas fa-phone"></i>
+                        <span data-lang="phoneLogin">Phone Login</span>
+                    </button>
                 </div>
                 
-                <div class="form-group">
-                    <label for="login-password">Password</label>
-                    <div class="password-field-container">
-                        <input type="password" id="login-password" placeholder="Enter your password" required>
-                        <i class="toggle-password fas fa-eye-slash"></i>
+                <!-- Email Login Fields -->
+                <div class="login-fields" id="email-login-fields">
+                    <div class="form-group">
+                        <label for="login-email" data-lang="email">Email</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="login-email" name="email" placeholder="Enter your email" required>
+                        </div>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password" data-lang="password">Password</label>
+                        <div class="input-with-icon password-field-container">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye-slash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Phone Login Fields -->
+                <div class="login-fields" id="phone-login-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="login-phone" data-lang="phone">Phone Number</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="login-phone" name="phone" placeholder="Enter your phone number" data-required="true">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-otp" data-lang="otp">OTP</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-key"></i>
+                            <input type="text" id="login-otp" name="otp" placeholder="Enter OTP" data-required="true">
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn btn-secondary" id="send-otp-btn" data-lang="sendOtp">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Send OTP</span>
+                    </button>
                 </div>
                 
                 <div class="form-footer">
-                    <div class="remember-me">
-                        <input type="checkbox" id="remember">
-                        <label for="remember">Remember me</label>
-                    </div>
-                    <a href="#" class="forgot-password">Forgot Password?</a>
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember-me">
+                        <span data-lang="rememberMe">Remember me</span>
+                    </label>
+                    <a href="#" class="forgot-password" data-lang="forgotPassword">Forgot Password?</a>
                 </div>
                 
-                <button type="submit" class="btn">Login</button>
+                <button type="submit" class="btn btn-primary" data-lang="loginButton">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Login</span>
+                </button>
                 
                 <div class="alt-login">
-                    <p>Or login with</p>
-                    
+                    <p data-lang="orLoginWith">Or login with</p>
                     <div class="social-login">
-                        <button type="button" class="social-btn google" title="Login with Google">
+                        <button type="button" class="social-btn google">
                             <i class="fab fa-google"></i>
                         </button>
-                        <button type="button" class="social-btn facebook" title="Login with Facebook">
+                        <button type="button" class="social-btn facebook">
                             <i class="fab fa-facebook-f"></i>
                         </button>
-                        <button type="button" class="social-btn twitter" title="Login with Twitter">
+                        <button type="button" class="social-btn twitter">
                             <i class="fab fa-twitter"></i>
                         </button>
                     </div>
                 </div>
             </form>
-            
+
             <!-- Signup Form -->
-            <form id="signup-form">
-                <div class="form-group">
-                    <label for="signup-name">Full Name</label>
-                    <input type="text" id="signup-name" placeholder="Enter your full name" required>
+            <form id="signup-form" style="display: none;">
+                <div class="signup-options">
+                    <button type="button" class="signup-option-btn active" data-signup-type="email">
+                        <i class="fas fa-envelope"></i>
+                        <span data-lang="emailSignup">Email Signup</span>
+                    </button>
+                    <button type="button" class="signup-option-btn" data-signup-type="phone">
+                        <i class="fas fa-phone"></i>
+                        <span data-lang="phoneSignup">Phone Signup</span>
+                    </button>
                 </div>
                 
-                <div class="form-group">
-                    <label for="signup-email">Email Address</label>
-                    <input type="email" id="signup-email" placeholder="Enter your email address" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="signup-phone">Phone Number</label>
-                    <input type="tel" id="signup-phone" placeholder="Enter your phone number" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="signup-password">Password</label>
-                    <div class="password-field-container">
-                        <input type="password" id="signup-password" placeholder="Create a strong password" required>
-                        <i class="toggle-password fas fa-eye-slash"></i>
+                <!-- Email Signup Fields -->
+                <div class="signup-fields" id="email-signup-fields">
+                    <div class="form-group">
+                        <label for="signup-name" data-lang="fullName">Full Name</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="signup-name" name="name" placeholder="Enter your full name" required>
+                        </div>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-email" data-lang="email">Email</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-password" data-lang="password">Password</label>
+                        <div class="input-with-icon password-field-container">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="signup-password" name="password" placeholder="Create a password" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye-slash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Phone Signup Fields -->
+                <div class="signup-fields" id="phone-signup-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="signup-name-phone" data-lang="fullName">Full Name</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="signup-name-phone" name="name" placeholder="Enter your full name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-phone" data-lang="phone">Phone Number</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="signup-phone" name="phone" placeholder="Enter your phone number" data-required="true">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-otp" data-lang="otp">OTP</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-key"></i>
+                            <input type="text" id="signup-otp" name="otp" placeholder="Enter OTP" data-required="true">
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn btn-secondary" id="send-signup-otp-btn" data-lang="sendOtp">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Send OTP</span>
+                    </button>
                 </div>
                 
                 <div class="terms-container">
                     <input type="checkbox" id="terms" required>
-                    <label for="terms">I agree to the <a href="javascript:void(0)" onclick="window.location.href='terms.html'">Terms of Service</a> and <a href="javascript:void(0)" onclick="window.location.href='privacy-policy.html'">Privacy Policy</a></label>
+                    <label for="terms" data-lang="termsText">
+                        I agree to the <a href="#" data-lang="termsOfService">Terms of Service</a> and <a href="#" data-lang="privacyPolicy">Privacy Policy</a>
+                    </label>
                 </div>
                 
-                <button type="submit" class="btn">Create Account</button>
+                <button type="submit" class="btn btn-primary" data-lang="signupButton">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Sign Up</span>
+                </button>
             </form>
         </div>
     </div>
-    
-    <!-- Footer Links -->
-    <div class="footer-links">
-        <a href="javascript:void(0)" onclick="window.location.href='index.html'">Home</a>
-        <span class="divider">|</span>
-        <a href="javascript:void(0)" onclick="window.location.href='privacy-policy.html'">Privacy Policy</a>
-        <span class="divider">|</span>
-        <a href="javascript:void(0)" onclick="window.location.href='terms.html'">Terms of Service</a>
-        <span class="divider">|</span>
-        <a href="javascript:void(0)" onclick="window.location.href='contact.html'">Contact Us</a>
-    </div>
-    
-    <!-- Language Selector -->
-    <div class="language-selector">
-        <button class="lang-btn" data-lang="en">English</button>
-        <button class="lang-btn" data-lang="ta">தமிழ்</button>
-    </div>
-    
-    <!-- Copyright -->
-    <div class="copyright">
-        &copy; <span id="current-year">2023</span> Uzhavar Oli. All rights reserved.
-    </div>
 
-    <!-- Custom JavaScript -->
-    <script src="login.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="#" data-lang="privacyPolicy">Privacy Policy</a>
+                <span class="divider">|</span>
+                <a href="#" data-lang="termsOfService">Terms of Service</a>
+                <span class="divider">|</span>
+                <a href="#" data-lang="contactUs">Contact Us</a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 AgriConnect. <span data-lang="allRightsReserved">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
     <script>
-        // Update copyright year
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-        
-        // Language selector
-        const langButtons = document.querySelectorAll('.lang-btn');
-        const currentLang = localStorage.getItem('agri-lang') || 'en';
-        
-        // Set active language
-        langButtons.forEach(btn => {
-            if (btn.getAttribute('data-lang') === currentLang) {
-                btn.classList.add('active');
-            }
+        // Set the default active tab to Login
+        document.addEventListener('DOMContentLoaded', () => {
+            // Make sure the login form is visible by default and signup is hidden
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('signup-form').style.display = 'none';
             
-            btn.addEventListener('click', function() {
-                const lang = this.getAttribute('data-lang');
-                localStorage.setItem('agri-lang', lang);
-                window.location.reload();
+            // Set the Login tab as active by default
+            const loginTab = document.querySelector('.tab-btn[data-tab="login"]');
+            loginTab.classList.add('active');
+            
+            // Set the Signup tab to be inactive by default
+            const signupTab = document.querySelector('.tab-btn[data-tab="signup"]');
+            signupTab.classList.remove('active');
+        });
+    
+        // Tab navigation logic for login/signup
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                
+                // Toggle between login and signup forms
+                document.getElementById('login-form').style.display = e.target.dataset.tab === 'login' ? 'block' : 'none';
+                document.getElementById('signup-form').style.display = e.target.dataset.tab === 'signup' ? 'block' : 'none';
+            });
+        });
+    
+        // Toggle email/phone login option
+        document.querySelectorAll('.login-option-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                document.querySelectorAll('.login-option-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+    
+                // Show email or phone login fields based on selection
+                if (e.target.dataset.loginType === 'email') {
+                    document.getElementById('email-login-fields').style.display = 'block';
+                    document.getElementById('phone-login-fields').style.display = 'none';
+                } else {
+                    document.getElementById('email-login-fields').style.display = 'none';
+                    document.getElementById('phone-login-fields').style.display = 'block';
+                }
+            });
+        });
+    
+        // Toggle email/phone signup option
+        document.querySelectorAll('.signup-option-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                document.querySelectorAll('.signup-option-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+    
+                // Show email or phone signup fields based on selection
+                if (e.target.dataset.signupType === 'email') {
+                    document.getElementById('email-signup-fields').style.display = 'block';
+                    document.getElementById('phone-signup-fields').style.display = 'none';
+                } else {
+                    document.getElementById('email-signup-fields').style.display = 'none';
+                    document.getElementById('phone-signup-fields').style.display = 'block';
+                }
+            });
+        });
+    
+        // Toggle password visibility
+        document.querySelectorAll('.toggle-password').forEach(button => {
+            button.addEventListener('click', () => {
+                const passwordField = button.closest('.password-field-container').querySelector('input');
+                const icon = button.querySelector('i');
+    
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    icon.classList.replace('fa-eye-slash', 'fa-eye');
+                } else {
+                    passwordField.type = 'password';
+                    icon.classList.replace('fa-eye', 'fa-eye-slash');
+                }
             });
         });
     </script>
+    
+    
 </body>
-</html> 
+</html>

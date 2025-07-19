@@ -1,9 +1,11 @@
-const CACHE_NAME = 'agriassist-v1';
+const CACHE_NAME = 'agriassist-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/styles.css',
   '/script.js',
+  '/youtube-refs.js',
+  '/market-prices.js',
   '/manifest.json',
   '/assets/logo.png',
   '/assets/favicon.ico',
@@ -22,7 +24,10 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('Opened cache');
-        return cache.addAll(ASSETS_TO_CACHE);
+        return cache.addAll(ASSETS_TO_CACHE)
+          .catch(err => {
+            console.error('Service Worker cache.addAll failed:', err);
+          });
       })
   );
 });
@@ -50,6 +55,29 @@ self.addEventListener('fetch', event => {
   if (!event.request.url.startsWith(self.location.origin) && 
       !event.request.url.startsWith('https://fonts.googleapis.com') && 
       !event.request.url.startsWith('https://cdnjs.cloudflare.com')) {
+    return;
+  }
+  
+  // For JavaScript files, always try network first, then cache
+  if (event.request.url.includes('.js')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(networkResponse => {
+          if (networkResponse.status === 200) {
+            // Cache the new version
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME)
+              .then(cache => {
+                cache.put(event.request, responseToCache);
+              });
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          // Fallback to cache if network fails
+          return caches.match(event.request);
+        })
+    );
     return;
   }
   

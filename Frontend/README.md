@@ -35,7 +35,7 @@ A modern, bilingual web application designed for Tamil Nadu farmers, providing a
    ```
    python -m http.server
    ```
-   Then visit `http://localhost:8000` in your browser.
+   Then visit `http://localhost:3000` in your browser.
 
    **Option 2:** Using VS Code Live Server:
    - Install the Live Server extension in VS Code

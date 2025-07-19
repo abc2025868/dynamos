@@ -16,7 +16,7 @@ python -m http.server
 python -m SimpleHTTPServer
 ```
 
-Then visit `http://localhost:8000` in your browser.
+Then visit `http://localhost:3000` in your browser.
 
 ### Option 3: Using VS Code Live Server
 1. Install the "Live Server" extension in VS Code

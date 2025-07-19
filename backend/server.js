@@ -3,9 +3,19 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// MongoDB Connection
+mongoose.connect('mongodb://localhost:27017/agriconnect', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('MongoDB connection error:', err));
 
 // Middleware
 app.use(cors());
@@ -86,17 +96,10 @@ function generateDistrictData(crop) {
   
   return districtData;
 }
-this.charts.trendChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'],
-        datasets: [{
-            label: 'Test Data',
-            data: [10, 20, 15, 25, 30],
-            borderColor: 'green'
-        }]
-    }
-});
+
+// Routes
+app.use('/api/auth', authRoutes);
+
 // API Routes
 app.get('/api/prices', (req, res) => {
   const { district, crop } = req.query;

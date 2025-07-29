@@ -5,6 +5,5 @@
 	symlinks = false
 	ignorecase = true
 [remote "origin"]
-	url = https://github.com/dharg6718/dynamos.git
-	fetch = +refs/*:refs/*
-	mirror = true
+	url = https://github.com/abc2025868/dynamos.git
+	fetch = +refs/heads/*:refs/remotes/origin/*

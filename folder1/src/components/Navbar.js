@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
@@ -51,13 +50,22 @@ const Navbar = () => {
               <span>{item.label}</span>
             </Link>
           ))}
+          {/* Adding the chatbot link here */}
+          <Link
+              to="/chatbot"
+              className={`nav-link ${location.pathname === '/chatbot' ? 'active' : ''}`}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <i className="fas fa-robot"></i>
+              <span>AI Assistant</span>
+            </Link>
         </div>
 
         <div className="navbar-actions">
           <button className="language-toggle" onClick={toggleLanguage}>
             {currentLanguage === 'en' ? 'தமிழ்' : 'English'}
           </button>
-          
+
           <button
             className={`mobile-menu-toggle ${isMobileMenuOpen ? 'active' : ''}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

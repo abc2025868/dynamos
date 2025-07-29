@@ -8,6 +8,9 @@ import MarketPrices from './pages/MarketPrices';
 import Weather from './pages/Weather';
 import Schemes from './pages/Schemes';
 import YoutubeRefs from './pages/YoutubeRefs';
+import AgriChatbot from './components/AgriChatbot';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import './App.css';
 
 function App() {
@@ -22,6 +25,9 @@ function App() {
           <Route path="/weather" element={<Weather />} />
           <Route path="/schemes" element={<Schemes />} />
           <Route path="/youtube-refs" element={<YoutubeRefs />} />
+          <Route path="/chatbot" element={<AgriChatbot />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>
     </Router>

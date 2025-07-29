@@ -163,6 +163,25 @@ app.post('/api/submit-query', (req, res) => {
   res.status(201).json({ success: true, queryId: query.id });
 });
 
+// Chat endpoint for AgriChatbot
+app.post('/api/chat', async (req, res) => {
+  try {
+    const { message, language } = req.body;
+
+    // Simple response for now - you can integrate with AI service later
+    let response = `Thank you for your message: "${message}". I'm an agricultural assistant here to help you with farming questions.`;
+
+    if (language === 'ta') {
+      response = `உங்கள் செய்திக்கு நன்றி: "${message}". நான் ஒரு விவசாய உதவியாளர், விவசாய கேள்விகளுக்கு உதவ இங்கே இருக்கிறேன்.`;
+    }
+
+    res.json({ response });
+  } catch (error) {
+    console.error('Chat error:', error);
+    res.status(500).json({ error: 'Chat service error' });
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

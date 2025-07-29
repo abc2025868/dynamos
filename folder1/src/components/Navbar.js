@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
@@ -7,6 +6,7 @@ function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState(false);
   const [currentLang, setCurrentLang] = useState('en');
   const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     // Get saved language from localStorage
@@ -41,6 +41,10 @@ function Navbar() {
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -56,9 +60,15 @@ function Navbar() {
           >
             Home
           </Link>
-          <a href="#features" className="menu-item">Services</a>
-          <a href="#about" className="menu-item">About</a>
-          
+          <Link to="/crop-disease" className={`menu-item ${location.pathname === '/crop-disease' ? 'active' : ''}`}>Crop Disease</Link>
+          <Link to="/market-prices" className={`menu-item ${location.pathname === '/market-prices' ? 'active' : ''}`}>Market Prices</Link>
+          <Link to="/weather" className={`menu-item ${location.pathname === '/weather' ? 'active' : ''}`}>Weather</Link>
+          <Link to="/schemes" className={`menu-item ${location.pathname === '/schemes' ? 'active' : ''}`}>Schemes</Link>
+          <Link to="/youtube-refs" className={`menu-item ${location.pathname === '/youtube-refs' ? 'active' : ''}`}>Videos</Link>
+          <Link to="/chatbot" className={`menu-item ${location.pathname === '/chatbot' ? 'active' : ''}`}>ChatBot</Link>
+          <Link to="/about" className={`menu-item ${location.pathname === '/about' ? 'active' : ''}`}>About</Link>
+          <Link to="/contact" className={`menu-item ${location.pathname === '/contact' ? 'active' : ''}`}>Contact</Link>
+
           <div className={`language-dropdown ${activeDropdown ? 'active' : ''}`}>
             <button 
               className="menu-item dropdown-btn" 
@@ -84,7 +94,7 @@ function Navbar() {
               </button>
             </div>
           </div>
-          
+
           <div className="account-icon">
             <Link to="/login" title="Login" aria-label="Login or manage account">
               <i className="fas fa-user-circle"></i>

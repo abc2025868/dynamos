@@ -182,6 +182,40 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+// Contact form endpoint
+app.post('/api/contact', async (req, res) => {
+  try {
+    const { name, email, phone, subject, message } = req.body;
+
+    if (!name || !email || !subject || !message) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // In a real app, you would save this to a database or send an email
+    const contactEntry = {
+      id: Date.now(),
+      name,
+      email,
+      phone: phone || '',
+      subject,
+      message,
+      timestamp: new Date().toISOString(),
+      status: 'new'
+    };
+
+    console.log('Contact form submission:', contactEntry);
+
+    res.status(201).json({ 
+      success: true, 
+      message: 'Contact form submitted successfully',
+      id: contactEntry.id 
+    });
+  } catch (error) {
+    console.error('Contact form error:', error);
+    res.status(500).json({ error: 'Contact form submission failed' });
+  }
+});
+
 // CORS configuration
 app.use(cors({
   origin: ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://0.0.0.0:3000'],

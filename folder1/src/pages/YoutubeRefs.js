@@ -6,138 +6,198 @@ import './YoutubeRefs.css';
 const YoutubeRefs = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const categories = [
+    { id: 'all', name: 'All Videos', icon: 'fas fa-video' },
+    { id: 'farming-techniques', name: 'Farming Techniques', icon: 'fas fa-seedling' },
+    { id: 'crop-management', name: 'Crop Management', icon: 'fas fa-leaf' },
+    { id: 'pest-control', name: 'Pest Control', icon: 'fas fa-bug' },
+    { id: 'irrigation', name: 'Irrigation', icon: 'fas fa-tint' },
+    { id: 'soil-health', name: 'Soil Health', icon: 'fas fa-mountain' }
+  ];
+
+  // Mock video data
+  const mockVideos = [
+    {
+      id: 1,
+      title: 'Modern Rice Farming Techniques in Tamil Nadu',
+      description: 'Learn advanced rice cultivation methods for better yield and quality',
+      category: 'farming-techniques',
+      thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
+      duration: '15:30',
+      channelName: 'Tamil Agriculture Today',
+      views: '125K',
+      likes: '2.3K',
+      tags: ['rice', 'farming', 'techniques', 'tamil-nadu'],
+      url: 'https://youtube.com/watch?v=dQw4w9WgXcQ',
+      language: 'Tamil'
+    },
+    {
+      id: 2,
+      title: 'Organic Pest Control Methods for Vegetables',
+      description: 'Natural and eco-friendly pest control solutions for vegetable crops',
+      category: 'pest-control',
+      thumbnail: 'https://img.youtube.com/vi/abc123xyz/maxresdefault.jpg',
+      duration: '12:45',
+      channelName: 'Organic Farming Guide',
+      views: '89K',
+      likes: '1.8K',
+      tags: ['organic', 'pest-control', 'vegetables'],
+      url: 'https://youtube.com/watch?v=abc123xyz',
+      language: 'Tamil'
+    },
+    {
+      id: 3,
+      title: 'Drip Irrigation System Setup and Maintenance',
+      description: 'Complete guide to installing and maintaining drip irrigation systems',
+      category: 'irrigation',
+      thumbnail: 'https://img.youtube.com/vi/def456uvw/maxresdefault.jpg',
+      duration: '18:20',
+      channelName: 'Smart Irrigation Solutions',
+      views: '67K',
+      likes: '1.5K',
+      tags: ['irrigation', 'drip-system', 'water-management'],
+      url: 'https://youtube.com/watch?v=def456uvw',
+      language: 'Tamil'
+    }
+  ];
 
   useEffect(() => {
     fetchVideos();
   }, []);
 
   const fetchVideos = async () => {
+    setLoading(true);
     try {
-      const response = await axios.get('/api/youtube-videos');
-      setVideos(response.data);
+      // In a real app, this would fetch from your backend API
+      // const response = await axios.get('/api/youtube-videos');
+      // setVideos(response.data);
+      
+      // Using mock data for now
+      setTimeout(() => {
+        setVideos(mockVideos);
+        setLoading(false);
+      }, 1000);
     } catch (error) {
       console.error('Error fetching videos:', error);
-    } finally {
+      setVideos(mockVideos);
       setLoading(false);
     }
   };
 
   const filteredVideos = videos.filter(video => {
-    const matchesSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         video.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || video.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    const matchesSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         video.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         video.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    return matchesCategory && matchesSearch;
   });
 
-  const categories = ['all', 'farming-techniques', 'crop-management', 'livestock', 'technology', 'marketing'];
+  const openVideo = (url) => {
+    window.open(url, '_blank');
+  };
 
   if (loading) {
     return (
-      <div className="page-container">
-        <div className="loading-container">
-          <div className="spinner"></div>
-          <p>Loading educational videos...</p>
+      <div className="youtube-page">
+        <div className="container">
+          <div className="loading">
+            <i className="fas fa-spinner fa-spin"></i>
+            <p>Loading videos...</p>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="page-container">
-      <div className="youtube-container">
-        <div className="container">
-          <div className="page-header">
-            <h1>Educational Videos</h1>
-            <p>Learn modern farming techniques through curated educational content</p>
+    <div className="youtube-page">
+      <div className="container">
+        <div className="page-header">
+          <h1><i className="fab fa-youtube"></i> Agricultural Video References</h1>
+          <p>Learn from expert farmers and agricultural specialists</p>
+        </div>
+
+        {/* Search and Filter */}
+        <div className="filters-section">
+          <div className="search-bar">
+            <i className="fas fa-search"></i>
+            <input
+              type="text"
+              placeholder="Search videos..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
 
-          <div className="filters-section">
-            <div className="search-filter">
-              <input
-                type="text"
-                placeholder="Search videos..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-input"
-              />
-            </div>
-
-            <div className="category-filter">
-              {categories.map(category => (
-                <button
-                  key={category}
-                  className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
-                  onClick={() => setSelectedCategory(category)}
-                >
-                  {category.replace('-', ' ').charAt(0).toUpperCase() + category.replace('-', ' ').slice(1)}
-                </button>
-              ))}
-            </div>
+          <div className="category-filters">
+            {categories.map(category => (
+              <button
+                key={category.id}
+                className={`category-btn ${selectedCategory === category.id ? 'active' : ''}`}
+                onClick={() => setSelectedCategory(category.id)}
+              >
+                <i className={category.icon}></i>
+                {category.name}
+              </button>
+            ))}
           </div>
+        </div>
 
-          <div className="videos-grid">
-            {filteredVideos.length > 0 ? (
-              filteredVideos.map((video, index) => (
-                <div key={index} className="video-card">
-                  <div className="video-thumbnail">
-                    <img src={video.thumbnail} alt={video.title} />
-                    <div className="play-overlay">
-                      <i className="fab fa-youtube"></i>
-                    </div>
-                    <div className="video-duration">{video.duration}</div>
-                  </div>
-                  
-                  <div className="video-content">
-                    <h3>{video.title}</h3>
-                    <p className="video-description">{video.description}</p>
-                    
-                    <div className="video-meta">
-                      <div className="channel-info">
-                        <i className="fas fa-user-circle"></i>
-                        <span>{video.channelName}</span>
-                      </div>
-                      
-                      <div className="video-stats">
-                        <span className="views">
-                          <i className="fas fa-eye"></i>
-                          {video.views}
-                        </span>
-                        <span className="likes">
-                          <i className="fas fa-thumbs-up"></i>
-                          {video.likes}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="video-tags">
-                      {video.tags.map((tag, tagIndex) => (
-                        <span key={tagIndex} className="tag">{tag}</span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="video-footer">
-                    <a 
-                      href={video.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="btn btn-primary watch-btn"
-                    >
-                      <i className="fab fa-youtube"></i>
-                      Watch Video
-                    </a>
+        {/* Videos Grid */}
+        <div className="videos-grid">
+          {filteredVideos.length === 0 ? (
+            <div className="no-videos">
+              <i className="fas fa-video-slash"></i>
+              <h3>No videos found</h3>
+              <p>Try adjusting your search or filter criteria</p>
+            </div>
+          ) : (
+            filteredVideos.map(video => (
+              <div key={video.id} className="video-card" onClick={() => openVideo(video.url)}>
+                <div className="video-thumbnail">
+                  <img src={video.thumbnail} alt={video.title} />
+                  <div className="video-duration">{video.duration}</div>
+                  <div className="play-overlay">
+                    <i className="fas fa-play"></i>
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className="no-results">
-                <i className="fab fa-youtube"></i>
-                <p>No videos found for your search criteria</p>
+                
+                <div className="video-info">
+                  <h3 className="video-title">{video.title}</h3>
+                  <p className="video-description">{video.description}</p>
+                  
+                  <div className="video-meta">
+                    <span className="channel-name">
+                      <i className="fas fa-user"></i>
+                      {video.channelName}
+                    </span>
+                    <span className="video-stats">
+                      <i className="fas fa-eye"></i>
+                      {video.views}
+                    </span>
+                    <span className="video-likes">
+                      <i className="fas fa-thumbs-up"></i>
+                      {video.likes}
+                    </span>
+                  </div>
+                  
+                  <div className="video-tags">
+                    {video.tags.slice(0, 3).map((tag, index) => (
+                      <span key={index} className="tag">#{tag}</span>
+                    ))}
+                  </div>
+                  
+                  <div className="video-language">
+                    <i className="fas fa-language"></i>
+                    Available in {video.language}
+                  </div>
+                </div>
               </div>
-            )}
-          </div>
+            ))
+          )}
         </div>
       </div>
     </div>

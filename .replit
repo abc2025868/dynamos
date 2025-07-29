@@ -34,8 +34,21 @@ mode = "parallel"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd backend && npm start"
+args = "cd backend && npm install && npm start"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd folder1 && npm start"
+args = "cd folder1 && npm install && npm start"
+
+[[workflows.workflow]]
+name = "Start Backend"
+author = 45705999
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd backend"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm start"

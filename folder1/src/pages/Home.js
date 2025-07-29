@@ -1,100 +1,93 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
-import '../App.css';
 
-function Home() {
+const Home = () => {
   return (
     <div className="home-page">
-      {/* Cultural Icon */}
-      <div className="cultural-icon">
-        <div className="icon-container">
-          <img src="/agri-icon.png" alt="Tamil Nadu Cultural Symbol" />
-          <span className="icon-text">TN</span>
-        </div>
-      </div>
-
-      {/* News Ticker */}
-      <div className="news-ticker">
-        <div className="ticker-wrap">
-          <div className="ticker-content">
-            <span>Tamil Nadu announces new subsidies for organic farming</span>
-            <span>Weather forecast: Moderate rainfall expected in delta regions next week</span>
-            <span>New pest-resistant rice variety developed at Tamil Nadu Agricultural University</span>
-            <span>Government increases minimum support price for paddy by 5%</span>
-            <span>Solar-powered irrigation systems now available with 50% subsidy</span>
-          </div>
-        </div>
-      </div>
-
       {/* Hero Section */}
-      <section className="hero-section" id="home">
+      <section className="hero-section">
         <div className="hero-overlay">
-          <h1 className="hero-heading">Empowering Tamil Nadu Farmers with Smart Agriculture</h1>
-          <p className="hero-subheading">Get real-time weather, crop advice, and government scheme help.</p>
-          <Link to="/login" className="btn-get-started">Get Started</Link>
+          <h1 className="hero-heading">உழவர் ஒளி</h1>
+          <p className="hero-subheading">
+            Empowering Tamil Nadu Farmers with Modern Technology and Traditional Wisdom
+          </p>
+          <Link to="/crop-disease" className="btn-get-started">
+            Get Started
+          </Link>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="features-section" id="features">
-        <h2 className="section-title">Our Features</h2>
+      <section className="features-section">
+        <h2 className="section-title">Our Services</h2>
         <div className="features-container">
-          <Link to="/weather" className="feature-card" data-feature="weatherDetails">
+          <Link to="/crop-disease" className="feature-card">
             <div className="feature-icon">
-              <i className="fas fa-cloud-sun"></i>
+              <i className="fas fa-leaf"></i>
             </div>
-            <h3 className="feature-title">Weather Details</h3>
-            <p>Get accurate weather forecasts specific to your location and plan your farming activities accordingly.</p>
+            <h3 className="feature-title">Crop Disease Detection</h3>
+            <p>Upload photos of your crops and get instant AI-powered disease identification with treatment recommendations.</p>
           </Link>
 
-          <Link to="/crop-disease" className="feature-card" data-feature="cropDisease">
-            <div className="feature-icon">
-              <i className="fas fa-seedling"></i>
-            </div>
-            <h3 className="feature-title">Detect Crop Disease</h3>
-            <p>Use your smartphone to scan plants and identify diseases with our AI-powered detection system.</p>
-          </Link>
-
-          <Link to="/market-prices" className="feature-card" data-feature="marketPrices">
+          <Link to="/market-prices" className="feature-card">
             <div className="feature-icon">
               <i className="fas fa-chart-line"></i>
             </div>
-            <h3 className="feature-title">Latest Market Prices</h3>
-            <p>Stay informed about current market prices for your crops and find the best places to sell.</p>
+            <h3 className="feature-title">Market Prices</h3>
+            <p>Get real-time market prices for all major crops across Tamil Nadu mandis and make informed selling decisions.</p>
           </Link>
 
-          <Link to="/schemes" className="feature-card" data-feature="govtSchemes">
+          <Link to="/weather" className="feature-card">
             <div className="feature-icon">
-              <i className="fas fa-landmark"></i>
+              <i className="fas fa-cloud-sun"></i>
+            </div>
+            <h3 className="feature-title">Weather Forecast</h3>
+            <p>Access detailed weather forecasts and agricultural recommendations based on upcoming weather conditions.</p>
+          </Link>
+
+          <Link to="/schemes" className="feature-card">
+            <div className="feature-icon">
+              <i className="fas fa-handshake"></i>
             </div>
             <h3 className="feature-title">Government Schemes</h3>
-            <p>Learn about all available government schemes and subsidies that can help your farming business.</p>
+            <p>Discover and apply for various government schemes and subsidies available for Tamil Nadu farmers.</p>
           </Link>
 
-          <Link to="/youtube-refs" className="feature-card" data-feature="youtubeRefs">
+          <Link to="/youtube-refs" className="feature-card">
             <div className="feature-icon">
               <i className="fab fa-youtube"></i>
             </div>
-            <h3 className="feature-title">YouTube References</h3>
-            <p>Watch educational videos about modern farming techniques and best practices in agriculture.</p>
+            <h3 className="feature-title">Educational Videos</h3>
+            <p>Watch curated educational videos on modern farming techniques, pest management, and crop cultivation.</p>
           </Link>
 
-          <Link to="/chatbot" className="feature-card" data-feature="expertSuggestions">
+          <Link to="/chatbot" className="feature-card">
             <div className="feature-icon">
-              <i className="fas fa-hands-helping"></i>
+              <i className="fas fa-robot"></i>
             </div>
-            <h3 className="feature-title">Expert Suggestions</h3>
-            <p>Connect with agricultural experts who can provide personalized advice for your specific needs.</p>
+            <h3 className="feature-title">AI Assistant</h3>
+            <p>Chat with our AI-powered agricultural assistant for instant answers to your farming questions.</p>
           </Link>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="about-section" id="about">
+      <section className="about-section">
         <div className="about-content">
           <div className="about-text">
-            <p>This web app empowers Tamil Nadu farmers by providing agriculture insights, weather forecasts, government schemes, and expert help in their own language. Built with care, it brings tradition and technology together for a better future.</p>
+            <h2 className="section-title">About உழவர் ஒளி</h2>
+            <p>
+              உழவர் ஒளி (Farmer's Light) is a comprehensive digital platform designed specifically for Tamil Nadu farmers. 
+              We combine cutting-edge technology with deep understanding of local agricultural practices to provide 
+              farmers with the tools they need to succeed in modern agriculture.
+            </p>
+            <p>
+              Our platform offers real-time market prices, weather forecasts, crop disease detection, government scheme 
+              information, and educational resources - all in one place. We believe in empowering farmers with knowledge 
+              and technology to improve their yield, reduce losses, and increase profitability.
+            </p>
           </div>
           <div className="about-image">
             <img src="/about-image.jpg" alt="Tamil Nadu Farmers" />
@@ -105,8 +98,12 @@ function Home() {
       {/* Footer */}
       <footer className="footer-section">
         <div className="footer-quote">
-          <p>Ready to <span className="highlight">elevate</span> your farming? Join our <span className="highlight">community</span> of Tamil Nadu farmers using <span className="highlight">technology</span> to boost yields and income.</p>
+          <p>
+            "Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth, 
+            good morals, and happiness." - <span className="highlight">Thomas Jefferson</span>
+          </p>
         </div>
+        
         <div className="social-icons">
           <a href="#" className="social-icon" aria-label="Facebook">
             <i className="fab fa-facebook-f"></i>
@@ -120,25 +117,24 @@ function Home() {
           <a href="#" className="social-icon" aria-label="YouTube">
             <i className="fab fa-youtube"></i>
           </a>
-          <a href="#" className="social-icon" aria-label="WhatsApp">
-            <i className="fab fa-whatsapp"></i>
-          </a>
         </div>
+        
         <div className="footer-links">
-          <Link to="/login">Login</Link>
+          <Link to="/about">About Us</Link>
           <span className="divider">|</span>
-          <Link to="/about">About</Link>
+          <Link to="/contact">Contact</Link>
           <span className="divider">|</span>
-          <Link to="/contact">Contact Us</Link>
+          <a href="#">Privacy Policy</a>
           <span className="divider">|</span>
-          <a href="#" >Privacy Policy</a>
+          <a href="#">Terms of Service</a>
         </div>
+        
         <div className="copyright">
-          &copy; <span id="current-year">2024</span> SmartUzhavan. All rights reserved.
+          <p>&copy; 2024 உழவர் ஒளி (Farmer's Light). All rights reserved. Built with ❤️ for Tamil Nadu farmers.</p>
         </div>
       </footer>
     </div>
   );
-}
+};
 
 export default Home;

@@ -13,7 +13,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/agriconnect', {
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/agriconnect';
+mongoose.connect(mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })

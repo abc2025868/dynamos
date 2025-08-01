@@ -1,90 +1,96 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import './Navbar.css';
+import React, { useContext, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { LanguageContext } from "../LanguageContext";
+import { FaGlobe } from "react-icons/fa";
+import "./Navbar.css";
 
 const Navbar = () => {
   const location = useLocation();
+  const { lang, setLang } = useContext(LanguageContext);
+  const [dropdown, setDropdown] = useState(false);
+
+  const handleLanguage = (code) => {
+    setLang(code);
+    setDropdown(false);
+  };
 
   return (
     <>
       <nav className="navbar">
         <div className="navbar-container">
           <Link to="/" className="logo">
-            <img src="/logo.jpg" alt="AgriAssist Logo" width="50" height="50" />
+            <img src="/logo.jpg" alt="AgriAssist Logo" width={50} height={50} />
           </Link>
           <div className="navbar-menu">
-            <Link 
-              to="/" 
-              className={`menu-item ${location.pathname === '/' ? 'active' : ''}`}
-            >
-              <i className="fas fa-home"></i> Home
+            <Link to="/" className={`menu-item ${location.pathname === "/" ? "active" : ""}`}>
+              <i className="fas fa-home" /> {lang === "en" ? "Home" : "முகப்பு"}
             </Link>
-            <Link 
-              to="/crop-disease" 
-              className={`menu-item ${location.pathname === '/crop-disease' ? 'active' : ''}`}
-            >
-              <i className="fas fa-leaf"></i> Crop Disease
+            <Link to="/crop-disease" className={`menu-item ${location.pathname === "/crop-disease" ? "active" : ""}`}>
+              <i className="fas fa-leaf" /> {lang === "en" ? "Crop Disease" : "பயிர் நோய்"}
             </Link>
-            <Link 
-              to="/market-prices" 
-              className={`menu-item ${location.pathname === '/market-prices' ? 'active' : ''}`}
-            >
-              <i className="fas fa-chart-line"></i> Market Prices
+            <Link to="/market-prices" className={`menu-item ${location.pathname === "/market-prices" ? "active" : ""}`}>
+              <i className="fas fa-chart-line" /> {lang === "en" ? "Market Prices" : "சந்தை விலை"}
             </Link>
-            <Link 
-              to="/weather" 
-              className={`menu-item ${location.pathname === '/weather' ? 'active' : ''}`}
-            >
-              <i className="fas fa-cloud-sun"></i> Weather
+            <Link to="/weather" className={`menu-item ${location.pathname === "/weather" ? "active" : ""}`}>
+              <i className="fas fa-cloud-sun" /> {lang === "en" ? "Weather" : "வானிலை"}
             </Link>
-            <Link 
-              to="/schemes" 
-              className={`menu-item ${location.pathname === '/schemes' ? 'active' : ''}`}
-            >
-              <i className="fas fa-handshake"></i> Schemes
+            <Link to="/schemes" className={`menu-item ${location.pathname === "/schemes" ? "active" : ""}`}>
+              <i className="fas fa-handshake" /> {lang === "en" ? "Schemes" : "திட்டங்கள்"}
             </Link>
-            <Link 
-              to="/youtube-refs" 
-              className={`menu-item ${location.pathname === '/youtube-refs' ? 'active' : ''}`}
-            >
-              <i className="fab fa-youtube"></i> Videos
+            <Link to="/youtube-refs" className={`menu-item ${location.pathname === "/youtube-refs" ? "active" : ""}`}>
+              <i className="fab fa-youtube" /> {lang === "en" ? "Videos" : "வீடியோக்கள்"}
             </Link>
-            <div className="language-dropdown">
-              <span className="menu-item">
-                <i className="fas fa-globe"></i> Language
+
+            <div className="language-dropdown" style={{ position: "relative" }}>
+              <span
+                className="menu-item"
+                style={{ cursor: "pointer" }}
+                onClick={() => setDropdown(!dropdown)}
+                tabIndex={0}
+                role="button"
+                aria-label="Toggle Language Dropdown"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") setDropdown(!dropdown);
+                }}
+              >
+                <FaGlobe style={{ marginRight: 5 }} /> {lang === "en" ? "English" : "தமிழ்"}
               </span>
-              <div className="dropdown-content">
-                <a href="#" className="lang-option">English</a>
-                <a href="#" className="lang-option">தமிழ்</a>
-              </div>
+              {dropdown && (
+                <div
+                  className="dropdown-content"
+                  style={{
+                    position: "absolute",
+                    background: "#fff",
+                    boxShadow: "0 2px 12px rgba(0,0,0,0.14)",
+                    borderRadius: 6,
+                    marginTop: 6,
+                    minWidth: 80,
+                    zIndex: 30,
+                  }}
+                >
+                  <div className="lang-option" onClick={() => handleLanguage("en")} style={{ padding: "6px 15px", cursor: "pointer" }}>
+                    English
+                  </div>
+                  <div className="lang-option" onClick={() => handleLanguage("ta")} style={{ padding: "6px 15px", cursor: "pointer" }}>
+                    தமிழ்
+                  </div>
+                </div>
+              )}
             </div>
+
             <div className="account-icon">
               <Link to="/login">
-                <i className="fas fa-user-circle"></i>
+                <i className="fas fa-user-circle" />
               </Link>
-              <div className="tooltip">Login</div>
+              <div className="tooltip">{lang === "en" ? "Login" : "உள்நுழையவும்"}</div>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* News Ticker */}
-      <div className="news-ticker">
-        <div className="ticker-wrap">
-          <div className="ticker-content">
-            <span>🌾 New drought-resistant varieties available</span>
-            <span>💰 MSP for paddy increased by 5%</span>
-            <span>☀️ Solar irrigation systems now available with 50% subsidy</span>
-            <span>📱 Download our mobile app for real-time updates</span>
-            <span>🎯 Join our farmer community forum</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Cultural Icon */}
       <div className="cultural-icon">
         <div className="icon-container">
-          <img src="/agri-icon.png" alt="Tamil Nadu Agriculture" />
+          <img src="/agri-icon.png" alt={lang === "en" ? "Tamil Nadu Agriculture" : "தமிழ்நாடு வேளாண்மை"} />
           <div className="icon-text">TN</div>
         </div>
       </div>

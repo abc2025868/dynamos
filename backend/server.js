@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -8,6 +9,7 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const schemesRoutes = require('./routes/schemes');
 const predictRoutes = require('./routes/predict');
+const axios = require('axios'); // Added axios for making HTTP requests to Azure TTS
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -223,12 +225,87 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
+// Azure TTS endpoint
+app.post('/api/tts', async (req, res) => {
+    try {
+        const { text, language = 'en-US' } = req.body;
+
+        if (!text) {
+            return res.status(400).json({ error: 'Text is required' });
+        }
+
+        const azureKey = process.env.AZURE_SPEECH_KEY;
+        const azureRegion = process.env.AZURE_SPEECH_REGION || 'centralindia';
+
+        if (!azureKey) {
+            console.error('Azure Speech Key not found in environment variables');
+            return res.status(500).json({ error: 'Azure Speech service not configured' });
+        }
+
+        // Determine voice based on language
+        let voiceName = 'en-US-AriaNeural';
+        if (language === 'ta-IN') {
+            voiceName = 'ta-IN-PallaviNeural';
+        }
+
+        // Clean text for SSML
+        const cleanText = text.replace(/[<>&"']/g, (match) => {
+            switch (match) {
+                case '<': return '&lt;';
+                case '>': return '&gt;';
+                case '&': return '&amp;';
+                case '"': return '&quot;';
+                case "'": return '&apos;';
+                default: return match;
+            }
+        });
+
+        const ssml = `
+            <speak version="1.0" xmlns="https://www.w3.org/2001/10/synthesis" xml:lang="${language}">
+                <voice name="${voiceName}">
+                    ${cleanText}
+                </voice>
+            </speak>
+        `;
+
+        console.log(`Making Azure TTS request for language: ${language}, voice: ${voiceName}`);
+
+        const response = await axios({
+            method: 'POST',
+            url: `https://${azureRegion}.tts.speech.microsoft.com/cognitiveservices/v1`,
+            headers: {
+                'Ocp-Apim-Subscription-Key': azureKey,
+                'Content-Type': 'application/ssml+xml',
+                'X-Microsoft-OutputFormat': 'audio-16khz-128kbitrate-mono-mp3'
+            },
+            data: ssml,
+            responseType: 'arraybuffer',
+            timeout: 10000
+        });
+
+        res.set({
+            'Content-Type': 'audio/mpeg',
+            'Content-Length': response.data.length,
+            'Cache-Control': 'no-cache'
+        });
+
+        res.send(response.data);
+
+    } catch (error) {
+        console.error('Azure TTS Error:', error.response?.data || error.message);
+        res.status(500).json({ 
+            error: 'Text-to-speech service failed',
+            details: error.response?.status || error.message 
+        });
+    }
+});
+
 // CORS configuration
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://0.0.0.0:3000'],
+  origin: ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://0.0.0.0:3000', 'http://localhost:3001'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
 
 // Start server

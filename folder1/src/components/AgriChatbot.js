@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import './AgriChatbot.css';
 
@@ -10,11 +9,15 @@ const AgriChatbot = () => {
   const [currentLanguage, setCurrentLanguage] = useState('auto');
   const [isRecording, setIsRecording] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [currentSpeakingId, setCurrentSpeakingId] = useState(null);
+  const [currentAudio, setCurrentAudio] = useState(null);
+
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
   const recognitionRef = useRef(null);
 
-  const API_BASE_URL = 'http://0.0.0.0:3000/api';
+  const API_BASE_URL = 'http://localhost:5000/api';
   const SESSION_ID = 'chatbot_session_' + Date.now();
 
   const scrollToBottom = () => {
@@ -30,13 +33,10 @@ const AgriChatbot = () => {
     if (messages.length === 0) {
       addWelcomeMessage();
     }
-    
+
     // Load speech synthesis voices
     if ('speechSynthesis' in window) {
-      // Load voices
       speechSynthesis.getVoices();
-      
-      // Handle voices changed event
       if (speechSynthesis.onvoiceschanged !== undefined) {
         speechSynthesis.onvoiceschanged = () => {
           const voices = speechSynthesis.getVoices();
@@ -103,11 +103,11 @@ How can I assist you today?`,
     setMessages(prev => [...prev, typingMessage]);
 
     try {
-      // Handle simple greetings and thanks (with better detection)
+      // Handle simple greetings and thanks
       const userLower = userMessageContent.toLowerCase().trim();
       const greetings = ["hello", "hi", "hey", "hai", "vanakkam", "வணக்கம்"];
       const endNotes = ["thank you", "thanks", "ok", "okay", "bye", "goodbye", "nandri", "நன்றி"];
-      
+
       if (greetings.some(greet => userLower === greet || userLower.startsWith(greet + " ") || userLower.endsWith(" " + greet))) {
         setTimeout(() => {
           setMessages(prev => prev.filter(msg => !msg.isTyping));
@@ -141,7 +141,7 @@ How can I assist you today?`,
       // Call Gemini API
       const systemPrompt = "You are an expert agriculture assistant for Tamil Nadu. First, determine if the user's question is about agriculture (including farming, crops, livestock, agri-business, weather, soil, etc.). If it is, answer with a short, crisp, expert-like response. If it is NOT about agriculture, politely reply: 'Sorry, I can only answer agriculture-related questions.'";
       const apiKey = "AIzaSyDThNYvkIr1X0cwjMKtkIO5tXRsxxVAAN4";
-      
+
       const response = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
         {
@@ -261,140 +261,125 @@ How can I assist you today?`,
     }
   };
 
-  // Speech synthesis state
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [currentSpeakingId, setCurrentSpeakingId] = useState(null);
-
   const speakText = async (text, messageId) => {
     try {
       // If currently speaking this message, stop it
       if (isSpeaking && currentSpeakingId === messageId) {
-        speechSynthesis.cancel();
-        setIsSpeaking(false);
-        setCurrentSpeakingId(null);
+        stopCurrentSpeech();
         return;
       }
 
       // If speaking another message, stop it first
       if (isSpeaking) {
-        speechSynthesis.cancel();
-        setIsSpeaking(false);
-        setCurrentSpeakingId(null);
-        // Wait a bit before starting new speech
-        await new Promise(resolve => setTimeout(resolve, 100));
+        stopCurrentSpeech();
+        await new Promise(resolve => setTimeout(resolve, 200));
       }
 
-      // Detect Tamil text more accurately
+      // Clean text - remove markdown and HTML
+      const cleanText = text
+        .replace(/\*\*(.*?)\*\*/g, '$1')
+        .replace(/<[^>]*>/g, '')
+        .replace(/&[^;]+;/g, ' ')
+        .trim();
+
+      if (!cleanText) {
+        console.error('No text to speak after cleaning');
+        return;
+      }
+
+      // Detect Tamil text
       const tamilRegex = /[\u0B80-\u0BFF]/;
-      const hasTamilChars = tamilRegex.test(text);
+      const hasTamilChars = tamilRegex.test(cleanText);
       const isTamil = hasTamilChars || currentLanguage === 'ta';
-      
-      console.log('Text to speak:', text);
-      console.log('Has Tamil characters:', hasTamilChars);
-      console.log('Current language:', currentLanguage);
-      console.log('Will use Tamil voice:', isTamil);
+      const lang = isTamil ? 'ta-IN' : 'en-US';
 
-      // Use browser speech synthesis
-      if ('speechSynthesis' in window) {
-        // Wait for voices to be loaded
-        const loadVoices = () => {
-          return new Promise((resolve) => {
-            const voices = speechSynthesis.getVoices();
-            if (voices.length > 0) {
-              resolve(voices);
-            } else {
-              speechSynthesis.onvoiceschanged = () => {
-                resolve(speechSynthesis.getVoices());
-              };
-            }
-          });
-        };
+      console.log('Text to speak:', cleanText);
+      console.log('Language detected:', lang);
 
-        const voices = await loadVoices();
-        console.log('Available voices:', voices.map(v => `${v.name} (${v.lang})`));
-        
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 0.8;
-        utterance.pitch = 1;
-        utterance.volume = 1;
+      setIsSpeaking(true);
+      setCurrentSpeakingId(messageId);
 
-        if (isTamil) {
-          // Set Tamil language
-          utterance.lang = 'ta-IN';
-          
-          // Try to find the best Tamil voice
-          const tamilVoices = voices.filter(voice => 
-            voice.lang.includes('ta') || 
-            voice.lang.includes('Tamil') ||
-            voice.name.toLowerCase().includes('tamil') ||
-            voice.lang === 'ta-IN'
-          );
-          
-          console.log('Tamil voices found:', tamilVoices.map(v => `${v.name} (${v.lang})`));
-          
-          if (tamilVoices.length > 0) {
-            utterance.voice = tamilVoices[0];
-            console.log('Using Tamil voice:', tamilVoices[0].name);
-          } else {
-            // Fallback: try to find any Indian voice
-            const indianVoice = voices.find(voice => 
-              voice.lang.includes('IN') || 
-              voice.name.toLowerCase().includes('india')
-            );
-            if (indianVoice) {
-              utterance.voice = indianVoice;
-              console.log('Using Indian voice as fallback:', indianVoice.name);
-            }
-          }
-        } else {
-          // Set English language
-          utterance.lang = 'en-US';
-          
-          // Find an English voice
-          const englishVoice = voices.find(voice => 
-            voice.lang.includes('en-US') || 
-            voice.lang.includes('en-GB') ||
-            voice.lang.startsWith('en')
-          );
-          if (englishVoice) {
-            utterance.voice = englishVoice;
-            console.log('Using English voice:', englishVoice.name);
-          }
-        }
+      // Use Azure TTS
+      const response = await fetch(`${API_BASE_URL}/tts`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'audio/mpeg'
+        },
+        body: JSON.stringify({ 
+          text: cleanText, 
+          language: lang 
+        })
+      });
 
-        utterance.onstart = () => {
-          console.log('Speech started');
-          setIsSpeaking(true);
-          setCurrentSpeakingId(messageId);
-        };
-
-        utterance.onend = () => {
-          console.log('Speech ended');
-          setIsSpeaking(false);
-          setCurrentSpeakingId(null);
-        };
-
-        utterance.onerror = (event) => {
-          console.error('Speech synthesis error:', event.error, event);
-          setIsSpeaking(false);
-          setCurrentSpeakingId(null);
-          // Don't show error for Tamil text, as it might still work
-          if (!isTamil) {
-            alert('Could not play voice output: ' + event.error);
-          }
-        };
-
-        console.log('Starting speech synthesis...');
-        speechSynthesis.speak(utterance);
-      } else {
-        throw new Error('Speech synthesis not supported');
+      if (!response.ok) {
+        throw new Error(`Azure TTS API failed with status: ${response.status}`);
       }
+
+      const audioBlob = await response.blob();
+      if (audioBlob.size === 0) {
+        throw new Error('Received empty audio blob');
+      }
+
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      setCurrentAudio(audio);
+
+      audio.onended = () => {
+        cleanupAudio(audioUrl);
+      };
+
+      audio.onerror = (error) => {
+        console.error('Audio playback failed:', error);
+        cleanupAudio(audioUrl);
+      };
+
+      audio.oncanplaythrough = () => {
+        console.log('Audio ready to play');
+      };
+
+      await audio.play();
+      console.log('Azure TTS audio playing successfully');
+
     } catch (error) {
       console.error('Error in text-to-speech:', error);
-      setIsSpeaking(false);
-      setCurrentSpeakingId(null);
-      alert('Could not play voice output.');
+      alert('Text-to-speech failed. Please try again.');
+      resetSpeechState();
     }
+  };
+
+  const stopCurrentSpeech = () => {
+    // Stop audio playback
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      setCurrentAudio(null);
+    }
+
+    // Stop speech synthesis
+    speechSynthesis.cancel();
+    resetSpeechState();
+  };
+
+  const cleanupAudio = (audioUrl) => {
+    try {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.src = '';
+        setCurrentAudio(null);
+      }
+      if (audioUrl) {
+        URL.revokeObjectURL(audioUrl);
+      }
+    } catch (error) {
+      console.error('Error during audio cleanup:', error);
+    }
+    resetSpeechState();
+  };
+
+  const resetSpeechState = () => {
+    setIsSpeaking(false);
+    setCurrentSpeakingId(null);
   };
 
   const clearChat = () => {
@@ -426,7 +411,7 @@ How can I assist you today?`,
       const prompt = advicePrompts[category] || "Give general farming advice";
       const systemPrompt = "You are an expert agriculture assistant for Tamil Nadu. Provide short, practical advice.";
       const apiKey = "AIzaSyDThNYvkIr1X0cwjMKtkIO5tXRsxxVAAN4";
-      
+
       const response = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
         {
@@ -507,7 +492,7 @@ How can I assist you today?`,
           🏛️ Schemes
         </button>
       </div>
-      
+
       <div className="chatbot-messages">
         {messages.map(message => (
           <div key={message.id} className={`message ${message.sender}-message`}>
@@ -571,7 +556,7 @@ How can I assist you today?`,
             <button onClick={removeImage} className="remove-image">×</button>
           </div>
         )}
-        
+
         <div className="input-row">
           <input
             ref={fileInputRef}
@@ -587,7 +572,7 @@ How can I assist you today?`,
           >
             <i className="fas fa-camera"></i>
           </button>
-          
+
           <button 
             onClick={isRecording ? stopVoiceRecognition : startVoiceRecognition}
             className={`voice-btn ${isRecording ? 'recording' : ''}`}
@@ -595,7 +580,7 @@ How can I assist you today?`,
           >
             <i className={`fas fa-${isRecording ? 'stop' : 'microphone'}`}></i>
           </button>
-          
+
           <input
             type="text"
             value={inputValue}
@@ -604,7 +589,7 @@ How can I assist you today?`,
             placeholder={currentLanguage === 'ta' ? 'பயிர்கள், நோய்கள், விவசாயம் பற்றி கேளுங்கள்...' : 'Ask about crops, diseases, farming...'}
             className="message-input"
           />
-          
+
           <button 
             onClick={handleSendMessage}
             disabled={(!inputValue.trim() && !selectedImage) || isLoading}

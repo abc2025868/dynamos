@@ -1,3 +1,8 @@
+
+.chatbot-page {
+  padding-top: 80px;
+}
+
 /* Agriculture Chatbot Complete Styles */
 .chatbot-toggle-button {
   position: fixed;
@@ -28,6 +33,32 @@
 
 .chatbot-page {
   padding-top: 80px;
+}
+
+.speak-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+  color: #007BFF;
+  font-size: 16px;
+  vertical-align: middle;
+  transition: all 0.2s ease;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.speak-btn:hover {
+  color: #0056b3;
+  background: rgba(0, 123, 255, 0.1);
+}
+
+.speak-btn.speaking {
+  color: #dc3545;
+}
+
+.speak-btn.speaking:hover {
+  color: #c82333;
 }
 
 

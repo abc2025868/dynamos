@@ -1,26 +1,24 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-import { LanguageProvider } from './LanguageContext';  // Import your context provider
-
+import { LanguageProvider } from './LanguageContext';
 import Navbar from './components/Navbar';
+import AgriChatbot from './components/AgriChatbot';
 import Home from './pages/Home';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import CropDisease from './pages/CropDisease';
 import MarketPrices from './pages/MarketPrices';
 import Weather from './pages/Weather';
-import Schemes from './pages/Schemes';
 import YoutubeRefs from './pages/YoutubeRefs';
-import AgriChatbot from './components/AgriChatbot';
+import Schemes from './pages/Schemes';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import About from './pages/About';
-import Contact from './pages/Contact';
 
 import './App.css';
 
 function App() {
   return (
-    <LanguageProvider> {/* Wrap entire app here */}
+    <LanguageProvider>
       <Router>
         <div className="App">
           <Navbar />
@@ -44,6 +42,7 @@ function App() {
             <Route path="/youtube-refs.html" element={<YoutubeRefs />} />
 
             <Route path="/chatbot" element={<AgriChatbot />} />
+            <Route path="/ai-assistant" element={<AgriChatbot />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/about" element={<About />} />

@@ -26,6 +26,12 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../Frontend')));
 
+// Serve React app from folder1/build if it exists
+const reactBuildPath = path.join(__dirname, '../folder1/build');
+if (require('fs').existsSync(reactBuildPath)) {
+  app.use('/app', express.static(reactBuildPath));
+}
+
 // Mock data storage
 let mockData = {
   crops: {

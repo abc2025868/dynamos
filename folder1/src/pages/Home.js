@@ -172,14 +172,14 @@ const featuresData = [
     gradient: "linear-gradient(135deg, #F44336, #EF5350)",
   },
   {
-    to: "/chatbot",
+    to: "/ai-assistant",
     icon: <FaRobot />,
     enTitle: "AI Assistant",
     taTitle: "AI உதவியாளர்",
     enDesc:
       "Chat with our AI-powered agricultural assistant for instant answers to your farming questions.",
     taDesc:
-      "உங்கள் விவசாய சார்ந்த கேள்விகளுக்கு உடனடி பதில்களை பெற எமது AI சகாயி உடன் உரையாடவும்.",
+      "உங்கள் விவசாய சார் న்த கேள்விகளுக்கு உடনடி பதில்களை பெற எமது AI சகாயி உடன் உரையாடவும்.",
     gradient: "linear-gradient(135deg, #607D8B, #90A4AE)",
   },
 ];

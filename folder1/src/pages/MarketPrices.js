@@ -9,8 +9,8 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 const MarketPrices = () => {
   // API Configuration
-  const API_KEY = "579b464db66ec23bdd000001b8a46c51746b49a754759f879bcf48af";
-  const BACKUP_API_KEY = "1c9770dfaf3b327dd03510a4c07b7f2d";
+  const API_KEY =process.env.REACT_APP_MARKET_API_KEY;
+  const BACKUP_API_KEY =process.env.REACT_APP_MARKET_BACKUP_API_KEY;
   const API_URL = "https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070";
 
   // State management

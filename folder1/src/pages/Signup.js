@@ -1,6 +1,7 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './Signup.css';
 
 const Signup = () => {
@@ -13,7 +14,16 @@ const Signup = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  
   const navigate = useNavigate();
+  const { signup, currentUser } = useAuth();
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/');
+    }
+  }, [currentUser, navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -22,43 +32,57 @@ const Signup = () => {
     });
   };
 
+  const showError = (message) => {
+    setError(message);
+    setSuccess('');
+    setTimeout(() => setError(''), 5000);
+  };
+
+  const showSuccess = (message) => {
+    setSuccess(message);
+    setError('');
+    setTimeout(() => setSuccess(''), 5000);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      showError('Passwords do not match');
+      setIsLoading(false);
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      showError('Password should be at least 6 characters');
       setIsLoading(false);
       return;
     }
 
     try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          password: formData.password
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
+      await signup(formData.email, formData.password);
+      showSuccess('Account created successfully! You can now sign in.');
+      setTimeout(() => {
         navigate('/login');
-      } else {
-        setError(data.message || 'Registration failed');
-      }
+      }, 2000);
     } catch (error) {
-      setError('Network error. Please try again.');
+      console.error('Signup error:', error);
+      showError(getErrorMessage(error.code));
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const getErrorMessage = (errorCode) => {
+    const errorMessages = {
+      'auth/email-already-in-use': 'An account with this email already exists',
+      'auth/invalid-email': 'Invalid email address',
+      'auth/weak-password': 'Password should be at least 6 characters',
+      'auth/too-many-requests': 'Too many attempts. Please try again later',
+    };
+    return errorMessages[errorCode] || `Registration error: ${errorCode}`;
   };
 
   return (
@@ -71,6 +95,7 @@ const Signup = () => {
         
         <form onSubmit={handleSubmit} className="signup-form">
           {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">{success}</div>}
           
           <div className="form-group">
             <label htmlFor="name">Full Name</label>
@@ -106,7 +131,6 @@ const Signup = () => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              required
               placeholder="Enter your phone number"
             />
           </div>
@@ -120,7 +144,7 @@ const Signup = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              placeholder="Create a password"
+              placeholder="Create a password (min 6 characters)"
             />
           </div>
 
@@ -147,7 +171,13 @@ const Signup = () => {
         </form>
 
         <div className="signup-footer">
-          <p>Already have an account? <a href="/login">Sign in here</a></p>
+          <p>Already have an account? <button className="link-btn" onClick={() => navigate('/login')}>Sign in here</button></p>
+        </div>
+        
+        <div className="back-to-home">
+          <button className="link-btn" onClick={() => navigate('/')}>
+            <i className="fas fa-arrow-left"></i> Back to Home
+          </button>
         </div>
       </div>
     </div>

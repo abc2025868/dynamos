@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import './Weather.css';
 
-const WEATHER_API_KEY = '0ffe4b07e3a4446dcf5a2189ed7e7d03';
-const BACKUP_KEY = '1c9770dfaf3b327dd03510a4c07b7f2d';
+const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+const BACKUP_KEY = process.env.REACT_APP_WEATHER_BACKUP_KEY;
+
 const DEFAULT_LOCATION = 'Chennai, Tamil Nadu';
 
 const translations = {

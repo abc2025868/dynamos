@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 
 export const LanguageContext = createContext();
 
@@ -15,3 +15,8 @@ export const LanguageProvider = ({ children }) => {
     </LanguageContext.Provider>
   );
 };
+
+// Add this hook:
+export function useLanguage() {
+  return useContext(LanguageContext);
+}
